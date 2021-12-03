@@ -69,7 +69,7 @@ exports.getAllMessages = (req, res, next) => {
         });
       }
     });
-    res.status(200).json(newData)
+    res.status(200).json(newMessage)
   })
 };
 

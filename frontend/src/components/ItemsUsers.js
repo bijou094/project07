@@ -47,7 +47,7 @@ export default function ItemsUsers(props) {
             <div className=" m-3 d-flex  flex-column align-self-center">
                 <button onClick={submitFrom} className="btn btn-primary mb-4" type="submit" >image</button>
                 <button className="btn btn-primary mb-4" type="submit">poster</button>
-                        </div>
+            </div>
         </div>
     )
 }
