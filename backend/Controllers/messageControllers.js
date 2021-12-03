@@ -47,20 +47,20 @@ exports.getAllMessages = (req, res, next) => {
     if(err) {
       return res.status(400).json({ message: 'Impossible de récupérer les messages' });
     } 
-    let newData = [];
-    let currentId = -1;
+    let newMessage = [];
+    let newId = -1;
     let i = -1;
 
     data.forEach(message => {
-      if(currentId != message.id){
+      if(newId != message.id){
         i++;
-        currentId = message.id;
-        newData[i] = {...message};
+        newId = message.id;
+        newMessage[i] = {...message};
         
-        newData[i].tabComments = [];
+        newMessage[i].newComments = [];
       }
       if(message.comment_id != null){
-        newData[i].tabComments.push({
+        newMessage[i].newComments.push({
           comment_id: message.comment_id,
           user_id:message.user_id, 
           messageId:message.messageId,          
