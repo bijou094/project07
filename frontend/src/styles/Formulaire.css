@@ -1,0 +1,181 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
+
+
+.containerFrom{
+    width:600px;
+}
+.btnInscription{
+    width: 80px;
+    text-align: center;
+}
+.btn{   
+    border:none;
+    border-radius: 20px;    
+    background:linear-gradient(rgb(34, 185, 21),#69145b );
+    padding: 5px; 
+    margin-top: 20px; 
+    
+} 
+.btn:hover{              
+        opacity: 0.8;
+        box-shadow: 0px 2px 6px 1px #727171;        
+}  
+body{
+    margin: 0;
+    padding:0; 
+    font-size: 14px;      
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+/*--------------------le header----------------------------*/
+
+.navbar-nav{
+    width: 150px;
+}
+.icone_panier{
+    font-size: 80px;
+    color: white;
+}
+.imageTitre{
+    width: 100%;
+    object-fit: cover;
+    position: relative; z-index: -1;
+}
+h1{
+    margin-top: -10%;
+    position: absolute;
+    font-weight: 900;
+    text-align: center;
+    font-size: 25px;
+    font-family: "Shrikhand", sans-serif;
+    width: 100%;
+    color: #ffffff;
+}
+
+.titreH2, .logo, .titrePanier{
+    font-size: 25px;
+    font-family: "Shrikhand", sans-serif;
+}
+    
+/*---------------------------fin header------------------------------*/
+/*----------------------------debut bloc carte-----------------------------*/
+
+.cards{
+    width: 80%;                 
+    
+    border-radius: 20px;  
+
+}
+
+.card-title{
+    font-size: 15px;
+    font-family: "Roboto", sans-serif;
+}
+.card-img-top{    
+    border-radius: 20px 20px 0 0;
+    height:15rem;
+
+}
+.imageCameras{
+    width: 100%;    
+    object-fit: cover;
+}
+
+.card-body{
+    border-radius:0 0 20px 20px ;
+    background-color: rgb(238, 230, 230);
+}
+.block-Panier{
+    background-color:#d0edcc;
+    min-height: 500px;
+}
+.bi{
+    font-size: 20px;
+    background-color: transparent;
+   
+}
+.list-inline {
+    width: 300px;
+    
+
+}
+
+/*--------------------------------page 2------------------------------------------------*/
+
+
+.carte-Produit{
+    min-height: 750px;
+    width : 90%;
+    max-width: 35rem;
+    border-radius: 20px;
+    background-color: rgb(209, 209, 209);
+}
+.ficheProduit{
+    height: 300px;
+    width: auto;
+      
+}
+.card-img-produit{
+    width: auto;
+    
+}
+    
+.imageProduit{
+    border-radius: 20px 20px 0 0;    
+    width:100% ;
+    object-fit: cover;
+    height: 20rem;
+}
+
+
+ 
+.form-group{
+    width: 20rem;
+}
+.selectTaille{
+    width: 20rem;
+    
+}
+
+.btn{
+    width: 160px;
+}
+/******************************************page3***********************************/
+
+
+
+.formil{
+   
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  
+}  
+
+.from{
+    
+    width: 60%;
+    
+   
+}
+.commentMessage{
+    width: 40%;
+}
+.form-groups{
+    min-width:70%;
+   
+}
+/*****************************************************page3**************************/
+.recapulatif{
+    width: 100%;
+    max-width: 600px;
+    font-weight: 600;
+    font-size: 18px;
+    background-color: white;
+    border-radius: 40px;
+
+}
+.idenCommande{
+    color: rgb(43, 10, 105);
+    
+}
