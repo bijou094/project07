@@ -6,19 +6,21 @@ import '../styles/Headers.css'
 
 function Navigation() {
 
-    const { token } = useContext(Auth)  
+    
     
 
 
 
     const history = useHistory();
-    const { isAuthenticated } = useContext(Auth);
+    const {isAuthenticated, setIsAuthenticated } = useContext(Auth);
 
     const pomptConfirmation = () => {
         if (window.confirm(
             `voulez vous  quitter votre compte
               OK  - revenir à l'acceuil 
               ANNULER - deriger vers publication `)) {
+                
+         
             setIsAuthenticated(false);
             history.push("/");
 
@@ -30,6 +32,7 @@ function Navigation() {
     
 
     const submitConnect = ()=>{
+        pomptConfirmation();
 
     }
 
