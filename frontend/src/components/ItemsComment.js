@@ -11,34 +11,24 @@ function ItemsComment(props) {
 
     return (
         <div>
-            <li>
-                <ul>
-                    {
-                        (props.message.comment_id != null ) && ( 
 
-                                                         
-                              
-                              <li className="d-flex  flex-row align-items-center mb-3 shadow p-3 mb-5 bg-body rounded mb-4">
-
-                                <div className="border rounded-circle p-3"> {props.message.user_id}</div>
-                                <div className="p-3"> {props.message.commenText}</div>
-                            </li>  
-                       )
-
-                    }
+            {
+                (props.message.id != null) && (
 
 
+                    <li className="contenairMsgCmt d-flex bg-light flex-row justify-content-start align-items-center mt-1">
+                        <div>                            
+                            <img className="bg-light border rounded-circle " src={props.message.user_id} alt="" width="50px" height="50px" />
+                        </div>                        
+                        
+                        <div className=" bg-light ml-3 text-justify"> {props.message.commenText}</div>
+                    </li>
 
-
-                </ul>
-
-
-
-            </li>
-
+                )
+            }
 
         </div>
 
     )
 }
-export default ItemsComment;//<div className="">{props.message.comment_id}</div>   verfier le user qui a commenter 
+export default ItemsComment;

@@ -9,7 +9,7 @@ const router = express.Router();
 
 // message
 
-router.post('/', auth, commentCtrl.createComment);
+router.post('/:messageId', auth, commentCtrl.createComment);
 router.get('/', auth,  commentCtrl.getAllComment);
 //router.get('/:id', auth, messageCtrl.getOneMessage);
 router.delete('/:id',auth,  commentCtrl.deleteOneComment);

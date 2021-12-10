@@ -5,27 +5,27 @@ const Comment = require('../Models/Comment');
 module.exports.createComment = (req, res, next) => {
   const newComment = new Comment ({
     user_id : req.body.user_id,// celui qui comment
-    messageId:req.body.messageId,// id de message
+    messageId:req.params.messageId,// id de message
     commenText:req.body.commenText, 
     createdAt : new Date(),
     updatedAt : new Date(),
-  })
-  //console.log(newComment);
+  })  
   Comment.create(newComment, (err,data) => {     
     if(err) {
       return res.status(400).json({ message: 'Impossible de créer le comment' });
-    } res.send(data);
-    /*
+    } //res.send(data);
+   
    Comment.latest((err, result) => {
      console.log(result);
     res.send({
         messageId: result.messageId, 
         id: result.id, 
-        comment_pseudo: result.pseudo, 
+        comment_pseudo: result.pseudo,
+        comment_imageUrl :result.imageUrl,	  
         commenText_content: result.commenText
     });
     
-  }); */  
+  });  
   })  
 };
 

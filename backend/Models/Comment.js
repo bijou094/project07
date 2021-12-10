@@ -36,7 +36,7 @@ Comment.latest = (result) => {// Récupérer le dernier commentaire
 };
 
 Comment.findAllMessageComment = (result) => {// Récupérer les commentaires par message
-    const sqllast ="SELECT comments.*,  FROM comments WHERE messageId=? " ;
+    const sqllast ="SELECT comments.*  FROM comments WHERE messageId=? " ;
     db.query(sqllast,id , (err, res) => {
         if(err) {
             result(err, null);

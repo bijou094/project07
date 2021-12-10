@@ -1,10 +1,12 @@
 import React from "react";
 import Navigation from '../components/Navigation';
-
+import Logo from './Logo'
 function Header(){
     return(
-        <div className="footer-container d-flex flex-row justify-content-end align-items-center">
+        <div className="footer-container m-0 container-fluid d-flex flex-row justify-content-between align-items-center">
+            < Logo />
             <Navigation />
+           
         </div>
     )
 }

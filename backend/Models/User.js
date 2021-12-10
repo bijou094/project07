@@ -87,8 +87,8 @@ User.findAll = (result) => {
 // Modifier un user
 
 User.modifyUser = (user, result) => {
-  const sqlModifyUser ="UPDATE users SET pseudo=?  WHERE id=? ";
-  db.query(sqlModifyUser,[user.pseudo, user.id], (err, res) => {
+  const sqlModifyUser ="UPDATE users SET pseudo=?,imageUrl=?,firstName=?,lastName=? WHERE id=? ";
+  db.query(sqlModifyUser,[user.pseudo,user.imageUrl,user.firstName,user.lastName,user.id], (err, res) => {
     if(err) {
       result(err, null);
       return;
@@ -98,8 +98,9 @@ User.modifyUser = (user, result) => {
   })
 };
  //desactiver le user
+ /*
 User.deactivate = (id, result) => {
-  const sqlDesactiveUser ="UPDATE users SET isActive=false WHERE id=?";
+  const sqlDesactiveUser ="UPDATE users SET  WHERE id=?";
   db.query(sqlDesactiveUser, id, (err, res) => {
       if(err) {
           result(err, null);
@@ -108,7 +109,7 @@ User.deactivate = (id, result) => {
           result(null, res)
       }
   })
-};
+};*/
 
 
 

@@ -10,8 +10,8 @@ const multer = require('../Middelewers/multer-config.js');
 
 // message
 
-router.post('/', auth, multer,  messageCtrl.createMessage);
-router.get('/',   messageCtrl.getAllMessages);//auth,
+router.post('/',auth,  multer,  messageCtrl.createMessage);
+router.get('/', auth , messageCtrl.getAllMessages);//,
 router.get('/:id',auth,  messageCtrl.getOneMessage);
 router.put('/:id',auth, multer, messageCtrl.updateOneMessage);
 router.delete('/:id',auth, messageCtrl.deleteOneMessage);
