@@ -1,8 +1,8 @@
 import React from "react";
 import {  BrowserRouter,  Switch,  Route} from "react-router-dom";
-import AuthenticatedRoute  from './AuthentificatedRoute';
+import AuthenticatedRoute  from '../routes/AuthentificatedRoute';
 import Home from "../pages/Home";
-import Signup from "../components/Signup";
+import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import Publication from "../pages/Publication";

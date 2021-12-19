@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/Home.css';
-import Login from '../pages/Login'
-//import Home from '../pages/Signup';
 
-function Home() {
+
+const Home = () => {
     return (
-        <div className="homeContainer">            
+        <Fragment>
             <Header />
-            <div className="homeContainer  d-flex flex-column align-items-sm-center align-items-md-center align-items-lg-center">         
-                 <h1 className=" text-center mt-5"> Bienvenue sur votre espace <i>Salarié </i></h1>    
-                           
-            </div>       
-           
-            <Footer /> 
-        </div>
+            <div className="homeContainer d-flex flex-column align-items-center  justify-content-center">
+
+                <h1 className=" "> Bienvenue sur votre espace <i>Salarié </i></h1>
+                <span>partager des contenue entre vous </span>
+
+            </div>
+
+            <Footer />
+
+        </Fragment>
     )
 }
 export default Home;

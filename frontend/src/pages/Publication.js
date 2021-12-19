@@ -1,63 +1,187 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef, Fragment } from 'react';
 import axios from 'axios';
-import Auth from './contextAuth';
+import Auth from '../context/contextAuth';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ItemsMessage from '../components/ItemsMessage';
+import '../styles/Formulaire.css'
 
 
 
 function Publication(props) {
-    console.log(props);
+
 
     //const [title, setTitle] = useState('');
-    //const [messageId, setMessageId ] = useState('');
+    /*
+    const [refreche, setRefreche] = useState(false);
+
     const [content, setContent] = useState('');
-    const [data, setData] = useState([]);   
+    const [data, setData] = useState([]);
+    const inputImg = useRef(null)
+
+    const { token, userId } = useContext(Auth)*/
 
 
-    const { token, userId } = useContext(Auth)
+    const [refreche, setRefreche] = useState(false);
+    const inputImg2 = useRef(null)
+    const [content, setContent] = useState('');
+   
+    const [data, setData] = useState([]);
+    
 
-    const submitFrom = (e) => {
+    const { token, userId, isAdmin } = useContext(Auth)
+
+
+
+    const submitposteMsg = (e) => {
         e.preventDefault()
-      
 
-        axios.post(`http://localhost:8000/api/auth/messages`, {content: content },
-            {
-                headers:
-                    { 'Authorization': 'Bearer ' + token }
-            })
+        let formData = new FormData() // instantiate it// suppose you have your file ready
+       
+        console.log(content);
+        formData.set('image', inputImg2.current.files[0])
+        formData.set('content', content)
+        formData.set('idUser', userId)
+       
+        
+            axios.post(`http://localhost:8000/api/auth/messages`, formData,
+                {
+                    headers:
+                    {
+                        'Authorization': 'Bearer ' + token,
+                        'content-type': 'multipart/form-data',
+                    }
+                })
+                .then((res) => {
 
-            .then((res) => {
-
-                alert('succed insert');
-                setData([]);
-                console.log(res);
-            });
+                    alert('succed insert');
+                    setRefreche(!refreche)
+                    setData([]);
+                    setContent('')                                 
+                    console.log(res);
+                });
+        
     }
+
 
 
     useEffect((e) => {
 
-
         axios.get("http://localhost:8000/api/auth/messages", { headers: { 'Authorization': 'Bearer ' + token } })
             .then((res) => {
-                //console.log(res);            
                 setData([...res.data]);
-                //res.send(res);
+                //setData([]);
             });
 
-    }, [token, userId, data]);
-    
-    
-    /*
-    const [messageUrl, setMessageUrl] = useState('');
-      
-    const changeImage = (e) => {
-        //e.preventDefault()
-       
+    }, [token, userId,refreche]);
 
-        axios.post(`http://localhost:8000/api/auth/messages`, { formData:messageUrl },
+
+
+
+
+
+
+    return (
+        <Fragment>
+            <Header />
+
+            <main className=" container"  >
+                <div className=" row   d-flex flex-column align-content-center">
+
+                    <section className="col-xs-12 col-s-8 col-md-8 col-lg-8  ">
+
+                        <h1 className=" text-primary mt-4  mb-4"> Postez vos messages </h1>
+
+                        <form className=" row m-1 p-1 d-flex flex-column justify-content-center align-content-center" >
+
+                            <div className="col-xs-12 col-s-8 col-md-12 col-lg-12  font-weight-bolder " >
+                                <label htmlFor="content" className="d-flex justify-content-start font-weight-bolder"> message</label>
+                                <textarea value={content} onChange={(e) => { setContent(e.target.value) }} className="border border-dark form-control " type="text" id="content" name="content" rows="5" cols="33" placeholder="message"></textarea>
+
+                            </div>
+
+                            <div className=" col-xs-12 col-s-8 col-md-12 col-lg-12 d-flex flex-row  justify-content-between align-items-center mt-1 ">
+                                <button onClick={submitposteMsg} className="btn-upload " type="submit">Publier</button>
+                                <div className=" parent-div mt-1">
+                                    <button className="btn-upload" type="submit">Images</button>
+                                    <input type="file" ref={inputImg2} className="inputFile" />
+                                </div>
+                            </div>
+
+                        </form>
+
+
+                        <article className="row text-center d-flex  flex-column align-items-center  justify-content-center ">
+                            <h2 className="text-primary   mt-4  mb-4" ><em>Messages</em></h2>
+
+                            <ul className="list-unstyled  col-xs-10 col-md-12 col-lg-12  p-1 m-1 ">
+                                {
+                                    data.map((message) => {
+                                        return <ItemsMessage key={message.id} message={message} />
+                                    })
+                                }
+                            </ul>
+                        </article>
+
+                    </section>
+                </div>
+            </main>
+
+            <Footer />
+        </Fragment>
+    )
+}
+export default Publication;
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+ <button onClick={submitFrom} className="btn  btn1 btn-primary align-self-center  border  border-dark font-weight-bolder" type="submit"> image</button>
+
+
+
+col-xs-6 col-s-6 col-md-8  col-lg-12
+
+
+
+
+const submitFrom = (e) => {
+        e.preventDefault()
+
+        let formData = new FormData() // instantiate it// suppose you have your file ready
+
+        formData.set('image', inputImg.current.files[0])
+
+
+        axios.post(`http://localhost:8000/api/auth/messages`, formData,
+            {
+                headers:
+                {
+                    'Authorization': 'Bearer ' + token,
+                    'content-type': 'multipart/form-data',
+                }
+            })
+
+            .then((res) => {
+
+                alert('succed insert');
+                setRefreche(!refreche)
+                console.log(res);
+            });
+    }
+
+    const submitposteMsg = (e) => {
+        e.preventDefault()
+        axios.post(`http://localhost:8000/api/auth/messages`, { content: content },
             {
                 headers:
                     { 'Authorization': 'Bearer ' + token }
@@ -66,63 +190,17 @@ function Publication(props) {
             .then((res) => {
 
                 alert('succed insert');
-                setMessageUrl([]);
+                setRefreche(!refreche)
                 console.log(res);
             });
-      
-      
-    };*/
-  
-    
+    }
 
+    useEffect((e) => {
+        axios.get("http://localhost:8000/api/auth/messages", { headers: { 'Authorization': 'Bearer ' + token } })
+            .then((res) => {
+                setData([...res.data]);
+            });
 
-    return (
+    }, [refreche]);
 
-        <main className=" container-fluid  blockLogin "  >
-            <Header />
-            <div className="  row  d-flex flex-column align-items-center align-items-sm-center align-items-md-center align-items-lg-center ">
-                <div className="col containerLogin  d-flex flex-column align-items-center  ">
-                    
-                    <form className="  d-flex  flex-column align-items-center  border border-dark  rounded m-1 ">
-                        <h2 className="  text-center mt-4  mb-4"> Postez vos messages </h2>
-                        {/*<div className="form-groups m-3 font-weight-bolder" >
-                            <label htmlFor="title" className="d-flex justify-content-start font-weight-bolder mb-2">titre :</label>
-                            <input value={title} onChange={(e) => { setTitle(e.target.value) }} type="text" className="border border-dark form-control" id="title" placeholder="titre" required />
-
-                        </div>*/}
-                        <div className="form-groups m-3 font-weight-bolder" >
-                            <label htmlFor="content" className="d-flex justify-content-start font-weight-bolder mb-2"> message</label>
-                            <textarea value={content} onChange={(e) => { setContent(e.target.value) }} className="border border-dark form-control" type="text" id="content" name="content" rows="5" cols="33" placeholder="message"></textarea>
-                        </div>
-                        <div className=" m-3 d-flex  flex-column align-self-center">
-                            <button onClick={submitFrom} className="btn btn-primary align-self-center  border rounded-pill border-dark font-weight-bolder mb-3" type="submit">Publier</button>
-                            <button onClick={submitFrom} className="btn btn-primary align-self-center  border rounded-pill border-dark font-weight-bolder mb-3" type="submit">Publier</button>
-                        </div>
-
-                    </form>
-
-                    <div className="d-flex  flex-column justify-content-center align-items-center  border border-dark  rounded m-1 ">
-                        <h2 >Suivez les piblications </h2>
-
-                        <ul className=" list-group  border border-danger rounded  ">
-                            {
-                                data.map((message) => {
-                                    return <ItemsMessage key={message.id} message={message} />
-                                })
-                            }
-                           
-
-                        </ul>
-
-                    </div>
-
-
-
-                </div>
-
-            </div>
-            <Footer />                        
-        </main>
-    )
-}
-export default Publication;
+ */

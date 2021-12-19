@@ -10,6 +10,8 @@ const cors = require('cors');
 const auth = require('./Middelewers/token_validation');
 
 
+
+
 const authRoutes = require('./Routes/userRoutes');
 const path = require('path');// chemain vers les fichiers
 const messageRoutes = require ('./Routes/messageRoutes');
@@ -76,11 +78,17 @@ app.use(morgan('dev'));
 
 
 
+
+
+
+
+
 app.use('/api/auth', authRoutes);
 app.use('/api/auth/messages', messageRoutes);
-app.use('/api/auth/comments',commentRoutes);
-app.use('/images', express.static(path.join(__dirname, 'images')));//gére les  ressources  statiquement(charger les fichiers qui sont dans le repertoire images)
 
+app.use('/api/auth/comments',commentRoutes);
+
+app.use('/images', express.static(path.join(__dirname, 'images')));//gére les  ressources  statiquement(charger les fichiers qui sont dans le repertoire images)
 
 
 

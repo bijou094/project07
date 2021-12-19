@@ -1,9 +1,90 @@
 const Message = require('../Models/Message');
-const Comment = require('../Models/Comment');
+//const Comment = require('../Models/Comment');
 
-//const fs = require('fs');
+module.exports.createMessage = (req, res, next) => { 
+  const message = new Message({
+    idUser: req.body.idUser,    
+    content: req.body.content,
+    messageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: null,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  })
+  Message.create(message, (err, data) => {
+    if (err) {
+      return res.status(400).json({ message: 'Impossible de créer le message' });
+    } 
+    Message.getLatest('', (err, result) => {
+      if (err) {
+        return res.status(400).json({message: 'Message non trouvé' });
+      }
+      res.status(200).json(result)
+    });
+    
+  })
+}
 
-// Créer un message
+exports.getAllMessages = (req, res, next) => {
+  Message.findAllMessage((err, newMessage) => {
+    if (err) {
+      return res.status(400).json({ message: 'Impossible de récupérer les messages' });
+    }   
+    res.status(200).json(newMessage)
+  })
+};
+
+exports.getOneMessage = (req, res, next) => {
+
+  Message.findOneMessage(req.params.id, (err, msgfound) => {
+
+    if (err) {
+      console.log(err);
+      return res.status(404).json({ message: 'message non trouvé' });
+    } else {
+      console.log(msgfound);
+      res.status(200).json(msgfound)
+    }
+  })
+};
+
+
+exports.updateOneMessage = (req, res, next) => {
+  
+  const message =  {
+    'id': req.params.id,
+    'idUser' : req.body.idUser,    
+    'content': req.body.content,    
+    'messageUrl': req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: null,
+  }
+  Message.updateMessage(message, (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ message: 'Modification non effectuée' });
+    }
+    res.status(200).json({ message: 'message Modifier' });
+
+  })
+  
+};
+
+exports.deleteOneMessage = (req, res, next) => {
+  Message.deleteMessage(req.params.id, (err, result) => {
+    if (err) {
+      return res.status(400).json({ message: 'Impossible de supprimer le message' });
+    }
+    res.status(200).json({ message: 'message supprimer' });
+  })
+};
+
+
+
+
+
+
+
+
+
+
+/*
 module.exports.createMessage = (req, res, next) => { 
   
   const message = new Message({
@@ -23,7 +104,7 @@ module.exports.createMessage = (req, res, next) => {
 
 
 
-// récupere tout les merssages
+
 
 exports.getAllMessages = (req, res, next) => {
   Message.findAllMessageWithComments((err, data) => {
@@ -46,7 +127,7 @@ exports.getAllMessages = (req, res, next) => {
         newMessage[i].newComments.push({
           comment_id: message.comment_id,
           user_id: message.user_id,
-          //imageUrl:message.imageUrl,
+          imageUrl:message.imageUrl,
           messageId: message.messageId,
           commenText: message.commenText
 
@@ -59,7 +140,7 @@ exports.getAllMessages = (req, res, next) => {
 
 
 
-// chercher un message
+
 
 exports.getOneMessage = (req, res, next) => {
 
@@ -78,7 +159,7 @@ exports.getOneMessage = (req, res, next) => {
 
 
 
-// modifier un messages
+
 
 exports.updateOneMessage = (req, res, next) => {
   const message =  {
@@ -100,7 +181,7 @@ exports.updateOneMessage = (req, res, next) => {
 };
 
 
-// supprimer un message
+
 
 exports.deleteOneMessage = (req, res, next) => {
   Message.deleteMessage(req.params.id, (err, result) => {
@@ -112,6 +193,7 @@ exports.deleteOneMessage = (req, res, next) => {
   })
 };
 
+*/
 
 
 
@@ -121,31 +203,3 @@ exports.deleteOneMessage = (req, res, next) => {
 
 
 
-
-/*
-exports.getAllMessages = (req, res, next) => {
-  
-  Message.findAllMessage((err, result) => { 
-    console.log(result);
-        if(err) {
-          return res.status(404).json({ message: 'messages non trouvés' });
-        }
-        //res.send(result); 
-        res.status(200).json(result)
-      
-    
-  })
-};*/
-
-/*const modifyMessage = {
-    id: req.params.id,
-    //idUser : req.idUser,    
-    content: req.body.content,
-  }
-  Message.updateMessage(modifyMessage, (err, data) => {
-
-    if (err) {
-      return res.status(404).json({ message: 'message non trouvés' });
-    }
-    res.send(data);
-  })*/

@@ -1,7 +1,9 @@
 .homeContainer{
     height: 700px;
-    background-image: url('../images/icon.svg') ;
+    background-image: url('../images/icon.svg')  ;
+  
     
+        
     background-repeat:no-repeat;
     background-size:cover;
     background-position: center;

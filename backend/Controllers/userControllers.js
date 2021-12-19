@@ -50,9 +50,12 @@ module.exports.login = (req, res, next) => {
           } else {
             res.status(200).json({
               userId: user.id,
+              isAdmin : user.isAdmin,
 
               token: jwt.sign({
                 userId: user.id,
+                isAdmin : user.isAdmin,
+                
               },
                 process.env.TOKEN,
                 {
@@ -104,11 +107,24 @@ exports.getOneUser = (req, res, next) => {
 // modifier user
 exports.updateOneUser = (req, res, next) => {
   const user =  {
-    'id': req.params.id,
-    'pseudo': req.body.pseudo,
-    'firstName':req.body.firstName,
-    'lastName':req.body.lastName,
+    'id': req.params.id,    
     'imageUrl': req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: null,
+  }
+  User.modifyImage(user, (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ message: 'Modification non effectuée' });
+    }
+    res.status(200).json({ message: 'User Modifier' });
+
+  })
+};
+
+exports.updateUserText = (req, res, next) => {
+  const user =  {
+    'id': req.params.id,    
+    'pseudo': req.body.pseudo,
+    'email':req.body.email,   
   }
   User.modifyUser(user, (err, result) => {
     if (err) {
@@ -119,6 +135,7 @@ exports.updateOneUser = (req, res, next) => {
 
   })
 };
+
 
 
 // fonction supprimer le user

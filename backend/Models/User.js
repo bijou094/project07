@@ -2,18 +2,6 @@ const mysql =  require('mysql');
 const express =require('express');
 const db = require('../baseD/db');
 
-// constructor models users
-//function User(user) {
-    //this.pseudo = user.pseudo;
-    //this.firstName = user.firstName;
-    //this.lastName = user.lastName;
-    //this.email = user.email;
-    //this.password = user.password;
-    //this.imageUrl = user.imageUrl;
-    //this.bio = user.bio;
-    //this.isAdmin = user.isAdmin;
-
-//}
 function User(user) {
   this.pseudo = user.pseudo;
   this.firstName = user.firstName;
@@ -21,10 +9,11 @@ function User(user) {
   this.email = user.email;
   this.password = user.password;
   this.imageUrl = user.imageUrl;
-  //this.bio = user.bio; 
-
+  //this.bio = user.bio;
+  //this.isAdmin = user.isAdmin;
 }
 module.exports = User;
+
 
 
 
@@ -86,9 +75,9 @@ User.findAll = (result) => {
 
 // Modifier un user
 
-User.modifyUser = (user, result) => {
-  const sqlModifyUser ="UPDATE users SET pseudo=?,imageUrl=?,firstName=?,lastName=? WHERE id=? ";
-  db.query(sqlModifyUser,[user.pseudo,user.imageUrl,user.firstName,user.lastName,user.id], (err, res) => {
+User.modifyImage = (user, result) => {
+  const sqlModifyUser ="UPDATE users SET imageUrl=? WHERE id=?";
+  db.query(sqlModifyUser,[user.imageUrl,user.id], (err, res) => {
     if(err) {
       result(err, null);
       return;
@@ -97,19 +86,20 @@ User.modifyUser = (user, result) => {
     }
   })
 };
- //desactiver le user
- /*
-User.deactivate = (id, result) => {
-  const sqlDesactiveUser ="UPDATE users SET  WHERE id=?";
-  db.query(sqlDesactiveUser, id, (err, res) => {
-      if(err) {
-          result(err, null);
-          return;
-      } else {
-          result(null, res)
-      }
+
+User.modifyUser = (user, result) => {
+  const sqlModUser ="UPDATE users SET pseudo=?,email=? WHERE id=?";
+  db.query(sqlModUser,[user.pseudo,user.email,user.id], (err, res) => {
+    if(err) {
+      result(err, null);
+      return;
+    } else {
+      result(null, res)
+    }
   })
-};*/
+};
+
+ 
 
 
 
@@ -117,7 +107,7 @@ User.deactivate = (id, result) => {
 
 // supprimer le user
 User.deleteUser = (id, result) => {
-  const sqlDeleteUser ="DELETE FROM users  WHERE id=?";
+  const sqlDeleteUser ="DELETE FROM users  WHERE id=? ";
   db.query(sqlDeleteUser, id, (err, res) => {
     if(err) {
       result(err, null);

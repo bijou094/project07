@@ -1,6 +1,6 @@
-import React,{ useState,useEffect,useContext } from 'react';
+import React,{ useState,useEffect,useContext, Fragment } from 'react';
 import {Link} from "react-router-dom";
-import Auth from './contextAuth';
+import Auth from '../context/contextAuth';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import Header from '../components/Header';
@@ -15,11 +15,16 @@ function Login() {
     const [pseudo, setPseudo ] = useState('')
     const [email, setEmail ] = useState('')
     const [password, setPassword ] = useState('');
+   
+
+
+
+
 
      
     const history = useHistory();
 
-    const {isAuthenticated, setIsAuthenticated,setToken,setUserId } = useContext(Auth) 
+    const {isAuthenticated, setIsAuthenticated,setToken,setUserId ,isAdmin,setIsAdmin} = useContext(Auth) 
     
 
     useEffect(( ) => {
@@ -40,16 +45,18 @@ function Login() {
             alert('connection réuissi'); 
             const token = res.data.token;
             const userId = res.data.userId ;
-            if  (token  != null && userId != null) {                    
+            const isAdmin = res.data.isAdmin ;
+            if  (token  != null && userId != null && isAdmin != null) {                    
                 setIsAuthenticated(true);
                 setUserId(userId);      
-                setToken(token);                    
+                setToken(token); 
+                setIsAdmin(isAdmin);                    
                 history.push("/publication");                          
             }
         })
     }
 
-    //const validEmailRegex = RegExp(/^(([^<>()[\].,;:s@"]+(.[^<>()[\].,;:s@"]+)*)|(".+"))@(([^<>()[\].,;:s@"]+.)+[^<>()[\].,;:s@"]{2,})$/i)
+    
 
     
          
@@ -58,19 +65,25 @@ function Login() {
 
 
     return (
-        <div>
+        <Fragment>
             <Header />
             <main className=" container-fluid blockLogin "  >
-                <div className=" row  d-flex flex-column align-items-center align-items-sm-center align-items-md-center align-items-lg-center ">
-                    <div className="col containerLogin  d-flex flex-column align-items-center border border-dark shadow-lg p-3 mb-5 bg-white rounded rounded mt-5 ">
+            <div className=" row  d-flex flex-column align-items-center align-items-sm-center align-items-md-center align-items-lg-center ">
+                    <div className="col containerLogin  d-flex flex-column align-items-center shadow-lg p-3 mb-5 bg-white rounded rounded mt-5 ">
                         <h2 className="  text-center mt-4  mb-4"> <i>Identifiez-vous</i> </h2>
-                        <form className=" from d-flex  flex-column align-items-center mb-2">
+                        <form className=" from d-flex  flex-column align-items-center mb-4">
 
                             <div className="form-groups m-3 font-weight-bolder " >
                                 <label htmlFor="pseudo" className="d-flex justify-content-start">Pseudo </label>
-                                <input value={pseudo} onChange={(e) =>{setPseudo(e.target.value)}} 
+                                <input value={pseudo} onChange={(e) =>{ setPseudo(e.target.value) }
+                                    } 
+
                                     className="form-control border border-dark" type="text"  id="pseudo" 
-                                /> 
+                                />
+                                
+                                   
+                                
+
                             </div>                    
                             <div className="form-groups m-3 font-weight-bolder" >
                                 <label htmlFor="email" className="d-flex justify-content-start">Email </label>
@@ -94,7 +107,7 @@ function Login() {
                 </div>
             </main> 
            <Footer /> 
-        </div>
+        </Fragment>
     )
 }
 export default Login;

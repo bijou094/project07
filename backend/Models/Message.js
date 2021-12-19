@@ -26,11 +26,11 @@ Message.create = (newMessage, result) =>{
   })
 };
 
-// Récupérer le dernier message
-/*
+// Récupérer le dernier messageSELECT * FROM messages ORDER BY id DESC LIMIT 0,1
+
 Message.getLatest = (id, result) => {
-  const sqlSelectLast = "SELECT * FROM messages ORDER BY id DESC LIMIT 0,1";
-  db.query(sqlSelectLast,(err, res) => {
+  const sqlSelectLast = "SELECT messages.*, users.pseudo , users.imageUrl From messages Left JOIN users ON messages.idUser = users.id  ORDER BY id DESC LIMIT 0,1";
+  db.query(sqlSelectLast,id,(err, res) => {
       if(err) {
           result(err, null);
           return;
@@ -38,17 +38,10 @@ Message.getLatest = (id, result) => {
           result(null, res[0])
       }
   })
-};*/
-
-
-
-
-
-
-
+};
 
 Message.findAllMessage = (result) => {    
-  const sqlFindAllMsg = "SELECT messages.*,users.pseudo FROM messages LEFT JOIN users ON users.id = messages.idUser ORDER BY createdAt DESC";  
+  const sqlFindAllMsg = "SELECT messages.*, users.pseudo , users.imageUrl From messages Left JOIN users ON messages.idUser = users.id  ORDER BY createdAt DESC";  
   db.query(sqlFindAllMsg, (err, res) => {
         if(err) {
             result(err, null);
@@ -59,7 +52,61 @@ Message.findAllMessage = (result) => {
     })
 };
 
-// Trouver tous les messages avec commentaires
+Message.findOneMessage = (id, result) => {
+  const sqlFindOneMsg = " SELECT messages.*, users.pseudo , users.imageUrl FROM messages LEFT JOIN users ON messages.idUser= users.id WHERE messages.id=? ORDER BY createdAt DESC";    
+  db.query(sqlFindOneMsg, id, (err, res) => {
+    if(err){result(err, null);return;
+    } else {result(null, res)}
+  })
+};
+
+Message.updateMessage = ( message, result) => {  
+  const sqlUpdateMsg = "UPDATE messages SET content=?, messageUrl=? WHERE id=? ";    
+  db.query(sqlUpdateMsg,[message.content, message.messageUrl,message.id], (err, res) => {
+    if(err){result(err, null);return;
+    } else {result(null, res)}
+  })
+}
+
+
+Message.deleteMessage = ( id, result) => {
+  const sqlUpdateMsg = "DELETE FROM messages  WHERE id=?";    
+  db.query(sqlUpdateMsg, id, (err, res) => {
+    if(err){result(err, null);return;
+    } else {result(null, res)}
+  })
+};
+
+
+
+
+
+
+/*
+celle de julien
+Message.findOneMessage = (id, result) => {
+  const sqlFindOneMsg = "SELECT * FROM messages LEFT JOIN comments  ON messages.id = comments.messageId WHERE messages.id=? ";    
+  db.query(sqlFindOneMsg, id, (err, res) => {
+    if(err){result(err, null);return;
+    } else {result(null, res)}
+  })
+};
+Message.updateMessage = ( message, result) => {  
+  const sqlUpdateMsg = "UPDATE messages SET content=?, messageUrl=? WHERE id=? ";    
+  db.query(sqlUpdateMsg,[message.content, message.messageUrl, message.id], (err, res) => {
+    if(err){result(err, null);return;
+    } else {result(null, res)}
+  })
+};
+
+Message.deleteMessage = ( id, result) => {
+  const sqlUpdateMsg = "DELETE FROM messages  WHERE id=?  ";    
+  db.query(sqlUpdateMsg, id, (err, res) => {
+    if(err){result(err, null);return;
+    } else {result(null, res)}
+  })
+};*/
+/*Trouver tous les messages avec commentaires
 Message.findAllMessageWithComments = (result) => {
     db.query(`SELECT messages.*,users.pseudo,users.imageUrl,comments.user_id,comments.id AS comment_id,
     comments.messageId,   
@@ -76,44 +123,4 @@ Message.findAllMessageWithComments = (result) => {
             result(null, res)
         }
     })
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-Message.findOne = (id, result) => {
-  const sqlFindOneMsg = "SELECT * FROM messages LEFT JOIN comments  ON messages.id = comments.messageId WHERE messages.id=? ";    
-  db.query(sqlFindOneMsg, id, (err, res) => {
-    if(err){result(err, null);return;
-    } else {result(null, res)}
-  })
-};
-
-
-Message.updateMessage = ( message, result) => {  
-  const sqlUpdateMsg = "UPDATE messages SET content=?, messageUrl=? WHERE id=? ";    
-  db.query(sqlUpdateMsg,[message.content, message.messageUrl, message.id], (err, res) => {
-    if(err){result(err, null);return;
-    } else {result(null, res)}
-  })
-};
-
-
-
-
-Message.deleteMessage = ( id, result) => {
-  const sqlUpdateMsg = "DELETE FROM messages  WHERE id=?  ";    
-  db.query(sqlUpdateMsg, id, (err, res) => {
-    if(err){result(err, null);return;
-    } else {result(null, res)}
-  })
-};
+};*/
