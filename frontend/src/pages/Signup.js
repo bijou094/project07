@@ -36,12 +36,11 @@ export default function Signup() {
         setDataSignup(e)
      }
 
-         const regexEmail = /^(([^<>()[\].,;:s@"]+(.[^<>()[\].,;:s@"]+)*)|(".+"))@(([^<>()[\].,;:s@"]+.)+[^<>()[\].,;:s@"]{4,})$/i;
-         
+         const regexEmail = /^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,5})$/;         
 
         const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
 
-
+        const regexText = /^([a-zA-Z',.-]+( [a-zA-Z',.-]+)*){3,20}$/;
 
 
 
@@ -53,7 +52,7 @@ export default function Signup() {
     console.log(dataSignup.firstName);
 
 
-    const regexText = /^([a-zA-Z',.-]+( [a-zA-Z',.-]+)*){3,20}$/;
+    
 
 
 
@@ -119,7 +118,7 @@ export default function Signup() {
                                     onChange={(e) => { handleChange({ ...dataSignup, [e.target.id]: e.target.value }) }}
                                     className="form-control border border-dark" type="text" id="pseudo"
                                 />
-                                 {(regexText.test(dataSignup.pseudo || dataSignup.pseudo !== '' )) ?
+                                 {(regexText.test(dataSignup.pseudo) || (dataSignup.pseudo === '' )) ?
                                     ( '')
                                     :(
                                         <span className="text-danger "><small>Veuillez entrer un email valide !</small></span>
@@ -133,7 +132,7 @@ export default function Signup() {
                                     className="form-control border border-dark" type="email" id="email" placeholder="name@example.com"
 
                                 />
-                                 {(regexEmail.test(dataSignup.email || dataSignup.email !== '' )) ?
+                                 {(regexEmail.test(dataSignup.email ) || ( dataSignup.email === '' )) ?
                                     ( '')
                                     :(
                                         <span className="text-danger "><small>Veuillez entrer un email valide !</small></span>
@@ -146,7 +145,7 @@ export default function Signup() {
                                     onChange={(e) => { handleChange({ ...dataSignup, [e.target.id]: e.target.value }) }}
                                     className="form-control border border-dark" type="password" id="password"
                                 />
-                                 {(regexPassword.test(dataSignup.password || dataSignup.password !== '' )) ?
+                                 {(regexPassword.test(dataSignup.password) || (dataSignup.password === '' )) ?
                                     ( '')
                                     :(
                                         <span className="text-danger "><small>Veuillez entrer un password valide !</small></span>

@@ -25,9 +25,9 @@ function Publication(props) {
     const [refreche, setRefreche] = useState(false);
     const inputImg2 = useRef(null)
     const [content, setContent] = useState('');
-   
+
     const [data, setData] = useState([]);
-    
+
 
     const { token, userId, isAdmin } = useContext(Auth)
 
@@ -35,15 +35,17 @@ function Publication(props) {
 
     const submitposteMsg = (e) => {
         e.preventDefault()
+        if (inputImg2.current.files[0] !== null && content !== ''
+        ) {
 
-        let formData = new FormData() // instantiate it// suppose you have your file ready
-       
-        console.log(content);
-        formData.set('image', inputImg2.current.files[0])
-        formData.set('content', content)
-        formData.set('idUser', userId)
-       
-        
+            let formData = new FormData() // instantiate it// suppose you have your file ready
+
+            console.log(content);
+            formData.set('image', inputImg2.current.files[0])
+            formData.set('content', content)
+            formData.set('idUser', userId)
+
+
             axios.post(`http://localhost:8000/api/auth/messages`, formData,
                 {
                     headers:
@@ -57,10 +59,13 @@ function Publication(props) {
                     alert('succed insert');
                     setRefreche(!refreche)
                     setData([]);
-                    setContent('')                                 
+                    setContent('')
                     console.log(res);
                 });
-        
+        } else {
+            alert('ajouter')
+        }
+
     }
 
 
@@ -73,7 +78,7 @@ function Publication(props) {
                 //setData([]);
             });
 
-    }, [token, userId,refreche]);
+    }, [token, userId, refreche]);
 
 
 
@@ -117,7 +122,7 @@ function Publication(props) {
                             <ul className="list-unstyled  col-xs-10 col-md-12 col-lg-12  p-1 m-1 ">
                                 {
                                     data.map((message) => {
-                                        return <ItemsMessage key={message.id} message={message} />
+                                        return <ItemsMessage key={message.id} message={message} setRefreche={setRefreche} refreche={refreche} />
                                     })
                                 }
                             </ul>

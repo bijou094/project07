@@ -67,12 +67,16 @@ exports.updateOneMessage = (req, res, next) => {
 };
 
 exports.deleteOneMessage = (req, res, next) => {
+  if(req.isAdmin){
   Message.deleteMessage(req.params.id, (err, result) => {
     if (err) {
       return res.status(400).json({ message: 'Impossible de supprimer le message' });
     }
     res.status(200).json({ message: 'message supprimer' });
-  })
+  })}else{
+    res.status(401).json({ message: 'vous avez pas le droit de supprimer' });
+
+  }
 };
 
 

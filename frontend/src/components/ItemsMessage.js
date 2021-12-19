@@ -43,18 +43,18 @@ function ItemsMessage(props) {
                     { 'Authorization': 'Bearer ' + token }
             })
             .then((res) => {
-                
-                    // console.log(res);
+
+                // console.log(res);
                 setData([...res.data]);
                 //res.send(res);
-                
-                
+
+
             });
 
     }, [token, userId, props.message.id, refreche]);
 
 
-    
+
 
     const submitDelt = (e) => {
         e.preventDefault()
@@ -68,25 +68,15 @@ function ItemsMessage(props) {
             .then((res) => {
                 console.log(res);
                 setData([]);
-                setRefreche(!refreche)
+                props.setRefreche(!props.refreche)
 
             })
 
     }
 
 
-    const submitModify = (e) => {
-
-    }
-
-    const afficheContent = (props.message.messageUrl !== '' || props.message.messageUrl !== null)?
-    (<div className=" rounded text-justify">{props.message.content}</div>):
-    (alert('veuillez poster un message !') )
+   
     
-    const afficheImage = (props.message.messageUrl !== '' || props.message.messageUrl !== null) ?
-    (<img className="mt-2 " src={props.message.messageUrl} alt="" width="300px" height="150px" />):
-    (alert('veuillez poster choisir une image !') )   
-
 
 
     return (
@@ -108,29 +98,22 @@ function ItemsMessage(props) {
 
                     </div>
                     <hr style={{ borderTop: "4px solid #000 ", marginLeft: 20, marginRight: 20 }} />
-                    <div className="d-flex  flex-column   align-content-center  mt-2 ">                   
-                        {afficheContent}  
-                        {afficheImage}
+                    <div className="d-flex  flex-column   align-content-center  mt-2 ">
+                        {(props.message.content) &&(
+                        <div className=" rounded text-justify">{props.message.content}</div>)}
+
+                        {(props.message.messageUrl) &&(
+                            <img className="mt-2 " src={props.message.messageUrl} alt="" width="300px" height="150px" />
+                        )}
+                    
                     </div>
                     <div className="   d-flex flex-row justify-content-center align-items-center mt-3">
-                        {(isAdmin === 1) ? (
+                        {(isAdmin === 1) && (
                             <button onClick={submitDelt} className="btn-upload border-0" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" color="red" className="bi bi-trash-fill" viewBox="0 0 16 16">
                                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                             </svg></button>
                         )
-                            : (
-                                <div>
-                                    <button onClick={submitModify} className="btn-upload m-2 border-0" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" color="blue" className="bi bi-pencil-square" viewBox="0 0 16 16">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                    </svg> </button>
 
-                                    <button onClick={submitDelt} className="btn-upload m-2 border-0" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" color="red" className="bi bi-trash-fill" viewBox="0 0 16 16">
-                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                    </svg></button>
-                                </div>
-
-                            )
                         }
                     </div>
                 </div>
@@ -144,7 +127,7 @@ function ItemsMessage(props) {
                 <ul className="list-unstyled m-2  ">
                     {
                         data.map((comment) => {
-                            return <ItemsComments key={comment.id} comment={comment} />
+                            return <ItemsComments key={comment.id} comment={comment} setRefreche={setRefreche} refreche={refreche} />
                         })
                     }
 

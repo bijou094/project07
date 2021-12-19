@@ -10,7 +10,7 @@ const Home = () => {
             <Header />
             <div className="homeContainer d-flex flex-column align-items-center  justify-content-center">
 
-                <h1 className=" "> Bienvenue sur votre espace <i>Salarié </i></h1>
+                <h1 className="titre "> Bienvenue sur votre espace <i>Salarié </i></h1>
                 <span>partager des contenue entre vous </span>
 
             </div>

@@ -12,6 +12,7 @@ export default function Profile() {
     const { token, userId } = useContext(Auth)
 
     const [data, setData] = useState([])
+    const [refreche, setRefreche] = useState(false);
 
     //const history = useHistory()
     //const {isAuthenticated, setIsAuthenticated} = useContext(Auth)
@@ -23,8 +24,10 @@ export default function Profile() {
                 alert('users trouver')
                 console.log(res);
                 setData([res.data])
+
+
             });
-    }, [token, userId]);
+    }, [token, userId, refreche]);
 
 
     return (
@@ -39,7 +42,7 @@ export default function Profile() {
                             <ul className="card  p-2 border rounded   p-2   ">
                                 {
                                     data.map((user) => {
-                                        return <Itemsuser key={user.id} user={user} />
+                                        return <Itemsuser key={user.id} user={user} setRefreche={setRefreche} refreche={refreche} />
                                     })
                                 }
                             </ul>
