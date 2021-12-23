@@ -8,43 +8,25 @@ import '../styles/Formulaire.css'
 
 
 
-function Publication(props) {
+const Publication = (props) => { 
 
-
-    //const [title, setTitle] = useState('');
-    /*
-    const [refreche, setRefreche] = useState(false);
-
-    const [content, setContent] = useState('');
     const [data, setData] = useState([]);
-    const inputImg = useRef(null)
-
-    const { token, userId } = useContext(Auth)*/
-
-
+    const [content, setContent] = useState('');
     const [refreche, setRefreche] = useState(false);
     const inputImg2 = useRef(null)
-    const [content, setContent] = useState('');
-
-    const [data, setData] = useState([]);
-
-
     const { token, userId, isAdmin } = useContext(Auth)
 
 
 
+    // requêtes avec post pour cree un message
     const submitposteMsg = (e) => {
         e.preventDefault()
         if (inputImg2.current.files[0] !== null && content !== ''
         ) {
-
-            let formData = new FormData() // instantiate it// suppose you have your file ready
-
-            console.log(content);
+            let formData = new FormData()             
             formData.set('image', inputImg2.current.files[0])
             formData.set('content', content)
             formData.set('idUser', userId)
-
 
             axios.post(`http://localhost:8000/api/auth/messages`, formData,
                 {
@@ -55,41 +37,34 @@ function Publication(props) {
                     }
                 })
                 .then((res) => {
-
                     alert('succed insert');
                     setRefreche(!refreche)
                     setData([]);
                     setContent('')
                     console.log(res);
-                });
+                }).catch((error)=>{console.log(error);});
         } else {
-            alert('ajouter')
+            alert('Veuillez saisir un message ou choisir un message')
         }
 
     }
 
 
-
+    // requêtes avec get pour recuperer tout les messages
     useEffect((e) => {
 
         axios.get("http://localhost:8000/api/auth/messages", { headers: { 'Authorization': 'Bearer ' + token } })
             .then((res) => {
                 setData([...res.data]);
-                //setData([]);
+                
             });
 
     }, [token, userId, refreche]);
 
 
-
-
-
-
-
     return (
         <Fragment>
             <Header />
-
             <main className=" container"  >
                 <div className=" row   d-flex flex-column align-content-center">
 
@@ -98,13 +73,11 @@ function Publication(props) {
                         <h1 className=" text-primary mt-4  mb-4"> Postez vos messages </h1>
 
                         <form className=" row m-1 p-1 d-flex flex-column justify-content-center align-content-center" >
-
                             <div className="col-xs-12 col-s-8 col-md-12 col-lg-12  font-weight-bolder " >
                                 <label htmlFor="content" className="d-flex justify-content-start font-weight-bolder"> message</label>
                                 <textarea value={content} onChange={(e) => { setContent(e.target.value) }} className="border border-dark form-control " type="text" id="content" name="content" rows="5" cols="33" placeholder="message"></textarea>
 
                             </div>
-
                             <div className=" col-xs-12 col-s-8 col-md-12 col-lg-12 d-flex flex-row  justify-content-between align-items-center mt-1 ">
                                 <button onClick={submitposteMsg} className="btn-upload " type="submit">Publier</button>
                                 <div className=" parent-div mt-1">
@@ -112,13 +85,9 @@ function Publication(props) {
                                     <input type="file" ref={inputImg2} className="inputFile" />
                                 </div>
                             </div>
-
                         </form>
-
-
                         <article className="row text-center d-flex  flex-column align-items-center  justify-content-center ">
                             <h2 className="text-primary   mt-4  mb-4" ><em>Messages</em></h2>
-
                             <ul className="list-unstyled  col-xs-10 col-md-12 col-lg-12  p-1 m-1 ">
                                 {
                                     data.map((message) => {
@@ -131,7 +100,6 @@ function Publication(props) {
                     </section>
                 </div>
             </main>
-
             <Footer />
         </Fragment>
     )

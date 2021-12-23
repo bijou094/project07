@@ -8,16 +8,15 @@ function User(user) {
   this.lastName = user.lastName;
   this.email = user.email;
   this.password = user.password;
-  this.imageUrl = user.imageUrl;
-  //this.bio = user.bio;
-  //this.isAdmin = user.isAdmin;
+  this.imageUrl = user.imageUrl; 
+  this.isAdmin = user.isAdmin;
 }
 module.exports = User;
 
 
 
 
-// fonction pour créer un utilisateur
+// trouver pour créer un utilisateur
 User.create = (newUser, result) =>{
   const sqlInsert = "INSERT INTO users  SET ?";
   db.query(sqlInsert,newUser,(err, res) =>{
@@ -34,7 +33,7 @@ User.create = (newUser, result) =>{
   })
 };
 
-// trouver utilisateur by email
+// trouver utilisateur par email
 User.findOneByEmail = (email, result) =>{
   const sqlfindEmail = "SELECT *  FROM  users  WHERE email=?";
   db.query(sqlfindEmail,email,(err, res) =>{
@@ -73,7 +72,7 @@ User.findAll = (result) => {
   })
 };
 
-// Modifier un user
+// Modifier l'image d'un user
 
 User.modifyImage = (user, result) => {
   const sqlModifyUser ="UPDATE users SET imageUrl=? WHERE id=?";
@@ -86,7 +85,7 @@ User.modifyImage = (user, result) => {
     }
   })
 };
-
+ // Modifier pseudo et email d'un user 
 User.modifyUser = (user, result) => {
   const sqlModUser ="UPDATE users SET pseudo=?,email=? WHERE id=?";
   db.query(sqlModUser,[user.pseudo,user.email,user.id], (err, res) => {
@@ -98,11 +97,6 @@ User.modifyUser = (user, result) => {
     }
   })
 };
-
- 
-
-
-
 
 
 // supprimer le user
@@ -117,7 +111,6 @@ User.deleteUser = (id, result) => {
     }
   })
 };
-
 
 
 

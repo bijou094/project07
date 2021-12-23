@@ -18,10 +18,11 @@ export default function ItemsUsers(props) {
     const { token, userId, isAdmin } = useContext(Auth)
     const [pseudo, setPseudo] = useState('')
     const [email, setEmail] = useState('')
+    const [show, setShow] = useState(false)
 
 
     const [error, setError] = useState(null)
-   
+
 
 
     const inputImg2 = useRef(null)
@@ -29,6 +30,17 @@ export default function ItemsUsers(props) {
     const history = useHistory();
 
     const { setIsAuthenticated } = useContext(Auth)
+
+    const submitchangemodi = (e) => {
+        e.preventDefault();
+        setShow(!show)
+
+    }
+
+
+
+
+
 
 
     /* boutton pour changer la photos de profile*/
@@ -56,8 +68,12 @@ export default function ItemsUsers(props) {
 
     }
 
-    const submitchange = (e) => {        
-           e.preventDefault()
+
+
+    const submitchange = (e) => {
+        e.preventDefault()
+
+
 
         axios.put(`http://localhost:8000/api/auth/user/${userId}`, { pseudo: pseudo, email: email },
             {
@@ -72,9 +88,8 @@ export default function ItemsUsers(props) {
                 alert('cuser modifier');
                 setPseudo('')
                 setEmail('')
+                setShow(!show)
                 props.setRefreche(!props.refreche)
-
-
 
             })
 
@@ -109,6 +124,7 @@ export default function ItemsUsers(props) {
 
     const submitdeleCount = (e) => {
 
+
         axios.delete(`http://localhost:8000/api/auth/users/${userId}`,
             {
                 headers: {
@@ -123,64 +139,70 @@ export default function ItemsUsers(props) {
                 setError(error);
             })
 
+
     }
 
-   
+
 
 
     return (
         <Fragment>
-            <div className="d-flex bg-light flex-row align-items-sm-center align-items-md-center align-items-lg-center border border-dark">
+            <div className="d-flex  flex-column align-items-sm-center align-items-md-center align-items-lg-center">
                 <div className="m-2 ">
-                    <h1>Photo de profile </h1>
-                    <img className="bg-dark p-2 border rounded-circle  m-3" src={props.user.imageUrl} alt="" width="250px" height="250px" />
-                    <div className="p-3 align-content-start width=100px height=400px">{props.user.lastName} {props.user.firstName} </div>
+                    <div>
+                        <div className="ml-0  m-2 font-weight-bolder">{props.user.firstName} {props.user.lastName}</div>
+                        <div style={{ borderTop: "2px solid #000 " }}></div>
 
+                        <div className=" d-flex flex-row   justify-content-center align-items-center mt-4 ">
 
-                    <div className=" d-flex flex-row   justify-content-center align-items-center ">
-                        <button onClick={submitFrom} className="btn-upload mr-5" type="submit">Publier</button>
-                        <div className=" parent-div  ">
-                            <button className="btn-upload" type="submit">Images</button>
-                            <input type="file" ref={inputImg2} className="inputFile" />
+                            <button onClick={submitFrom} className="btn-upload mr-5" type="submit">Envoyer</button>
+                            <div className=" parent-div  ">
+                                <button className="btn-upload" type="submit">Choisir l'image</button>
+                                <input type="file" ref={inputImg2} className="inputFile" />
+                            </div>
                         </div>
+                        <img className="bg-dark p-2 border rounded-circle  m-3" src={props.user.imageUrl} alt="" width="200px" height="200px" />
                     </div>
+
+                    
+                    <div style={{ borderTop: "2px solid #000 " }}></div>
+
+                    <div className="mt-3">
+                        <div htmlFor="pseudo" className="d-flex justify-content-start "><strong>Pseudo:</strong> {props.user.pseudo} </div>
+                        <div htmlFor="email" className="d-flex justify-content-start mb-2"> <strong>Email:</strong>{props.user.email} </div>
+                        <button onClick={submitchangemodi} className='btn btn-danger align-self-center  border rounded-pill border-dark font-weight-bolder mb-3 mt-2'> modifier</button>
+                    </div>                    
                 </div>
 
 
                 <div className="m-2 border  d-flex flex-column ">
+                    {
+                        (show) ? (
+                            <div className=" m-3  d-flex flex-column align-self-center ">
+                                <label htmlFor="pseudo" className="d-flex justify-content-start">saisir  votre  nouveau pseudo</label>
+                                <input value={pseudo} onChange={(e) => { setPseudo(e.target.value) }}
+                                    className="form-control border border-dark " type="text" id="pseudo" />
 
-                    <div className="form-groups m-3 font-weight-bolder" >
-                        
-                            <label htmlFor="pseudo" className="d-flex justify-content-start">Pseudo: {props.user.pseudo} </label>
+                                <label htmlFor="email" className="d-flex justify-content-start">saisir  votre  nouveau email</label>
+                                <input value={email} onChange={(e) => { setEmail(e.target.value) }}
+                                    className="form-control border border-dark" type="email" id="email" placeholder="name@example.com" />
 
-                            <input value={pseudo} onChange={(e) => { setPseudo(e.target.value) }}
-                                className="form-control border border-dark " type="text" id="pseudo" />
-
-                            
-                       
-                        
-                    </div>
-                    <div className="form-groups m-3 font-weight-bolder" >
-                        <label htmlFor="email" className="d-flex justify-content-start">Email: {props.user.email} </label>
-                        <input value={email} onChange={(e) => { setEmail(e.target.value) }}
-                            className="form-control border border-dark" type="email" id="email" placeholder="name@example.com"
-                        />
-                    </div>
-                    <div className=" m-3  d-flex flex-column align-self-center ">
-                        <button onClick={submitchange} className="btn btn-danger align-self-center  border rounded-pill border-dark font-weight-bolder mb-3">modifier </button>
-                    </div>
-
+                                <button onClick={submitchange} className="btn btn-primary align-self-center  border rounded-pill border-dark font-weight-bolder mt-3 mb-3">valider </button>
+                            </div>) : ('')
+                    }
                 </div>
-
             </div>
 
             <div>
                 {(isAdmin === 1) ? (
-                    <button onClick={submitdeleCount} className="btn-upload mt-2" type="submit">Supprimer</button>
+                    <div>
+                    <span>Voulez vous supprimer votre compte </span>
+                    <button onClick={submitdeleCount} className="btn-upload mt-2 ml-3" type="submit">Supprimer</button>
+                    </div>
                 )
                     : (
                         <div>
-
+                            supprimer votre compte
                             <button onClick={submitdeleCount} className="btn-upload mt-2" type="submit">Supprimer</button>
                         </div>
 

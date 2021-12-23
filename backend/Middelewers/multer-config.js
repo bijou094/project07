@@ -16,5 +16,6 @@ const storage = multer.diskStorage({
     callback(null, name + Date.now() + '.' + extension);
   }
 });
-//On export le module, on lui passe l'objet storage, la méthode single pour dire que c'est un fichier unique et on précise que c'est une image
+//On export le module, on lui passe l'objet storage,
+// la méthode single pour dire que c'est un fichier unique et on précise que c'est une image
 module.exports = multer({storage: storage}).single('image');

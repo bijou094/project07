@@ -2,8 +2,6 @@ const express =require('express');
 const mysql =  require('mysql');
 const db = require ('../baseD/db.js');
 
-
-
 function Comment (comment) {
     this.user_id=comment.user_id,
     this.messageId=comment.messageId,
@@ -14,9 +12,7 @@ function Comment (comment) {
 module.exports = Comment;
 
 
-// Créer un comment
-
-
+// Créer un commentaire
 Comment.create = (newComment, result) =>{
     const sqlInsert = "INSERT INTO comments SET ? ";
     db.query(sqlInsert,newComment,(err, res) =>{        
@@ -26,15 +22,16 @@ Comment.create = (newComment, result) =>{
   };
 
 
-
-Comment.getLatest = (messageId,result) => {// Récupérer le dernier commentaire
+// Récupérer le dernier commentaire
+Comment.getLatest = (messageId,result) => {
    const sqllast = "SELECT comments.*,users.pseudo,users.imageUrl FROM comments JOIN users ON users.id = comments.user_id ORDER BY messageId DESC LIMIT 0,1"; 
     db.query ( sqllast,messageId, (err, res) => {
         if(err) {result(err, null);return
         }else{result(null, res[0])};
     })
 };
-
+ 
+// Récupérer tout les  commentaires d'un message
 Comment.findAllMessageComment = (messageId,result) => {// Récupérer les commentaires par message
     const sqllast ="SELECT comments.*,users.pseudo,users.imageUrl FROM comments left JOIN users ON users.id = comments.user_id left join messages  on messages.id = comments.messageId  WHERE messageId=? ORDER BY createdAt DESC " ;
     db.query(sqllast,[messageId], (err, res) => {
@@ -47,6 +44,7 @@ Comment.findAllMessageComment = (messageId,result) => {// Récupérer les commen
     })
 };
 
+ // modifier un commentaire
 Comment.updateComment = ( comment, result) => {  
     const sqlUpdateCmt = "UPDATE comments SET commenText=? WHERE id=? ";    
     db.query(sqlUpdateCmt,[comment.commenText,comment.id], (err, res) => {
@@ -56,8 +54,8 @@ Comment.updateComment = ( comment, result) => {
   }
   
 
-
-Comment.deleteComments = (id, result) => {// Supprimer un comment
+ // supprimer  un commentaire 
+Comment.deleteComments = (id, result) => {
     const sqlDelete ="DELETE FROM comments  WHERE id=?";
     db.query(sqlDelete, id, (err, res) => {
         if(err) {
@@ -83,50 +81,4 @@ Comment.deleteComments = (id, result) => {// Supprimer un comment
 
 
 
-
-/*
-Comment.findAllMessageComment = (id, result) => {// Récupérer les commentaires par message
-    const sqllast ="SELECT comments.*,users.pseudo,users.imageUrl FROM comments JOIN users ON users.id = comments.user_id WHERE messageId=? " ;
-    db.query(sqllast,id , (err, res) => {
-        if(err) {
-            result(err, null);
-            return;
-        } else {
-            result(null, res)
-        }
-    })
-};
-
-Comment.findAllMessageComment = (id, result) => {  
-    const sqllast = "SELECT * From comments WHERE messageId=? ORDER BY createdAt DESC";  
-    db.query(sqllast,id,  (err, res) => {
-      if(err){result(err, null);return;
-      }else {result(null, res)}
-    })
-  };
-  Comment.findAllMessageComment = (result) => {// Récupérer les commentaires par message
-    const sqllast ="SELECT comments.*  FROM comments WHERE messageId=? " ;
-    db.query(sqllast,id , (err, res) => {
-        if(err) {
-            result(err, null);
-            return;
-        } else {
-            result(null, res)
-        }
-    })
-};
-  
-
-
-Comment.deleteComments = (id, result) => {// Supprimer un comment
-    const sqlDelete ="DELETE FROM comments WHERE id=?";
-    db.query(sqlDelete, Number(id), (err, res) => {
-        if(err) {
-            result(err, null);
-            return;
-        } else {
-            result(null, res)
-        }
-    })
-};  */
 
