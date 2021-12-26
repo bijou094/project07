@@ -8,10 +8,9 @@ const Home = () => {
     return (
         <Fragment>
             <Header />
-            <div className="homeContainer d-flex flex-column align-items-center  justify-content-center">
-
+            <div className="homeContainer d-flex flex-column align-items-center  justify-content-center">                
                 <h1 className="titre "> Bienvenue sur votre espace <i>Salarié </i></h1>
-                <span>partager des contenue entre vous </span>
+                <span className="fs-1"> échanger avec vos collégues </span>
 
             </div>
 

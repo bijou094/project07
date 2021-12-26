@@ -4,6 +4,7 @@
 
 .nav-link:hover{   
     border-bottom: 2px solid red;
+    
     padding-bottom: 5px;
     text-decoration-color: red;
      

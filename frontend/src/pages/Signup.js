@@ -33,7 +33,7 @@ const Signup = () => {
     const regexText = /^([a-zA-Z',.-]+( [a-zA-Z',.-]+)*){3,20}$/;
 
 
-   // requêtes avec post pour s'inscrire
+    // requêtes avec post pour s'inscrire
     const submitFrom = (e) => {
         e.preventDefault();
         axios.post("http://localhost:8000/api/auth/signup",
@@ -43,10 +43,16 @@ const Signup = () => {
 
                 alert('Votre compte à bien été créé ! Connectez-vous pour accéder aux derniers publications.');
                 history.push("/login");
-            }).catch((error)=>{
+            }).catch((error) => {
                 console.log(error);
             });
     }
+
+    const btn = (firstName !== "" && lastName !== "" && pseudo !== "" && email !== "" && password !== "")
+
+
+
+
 
     return (
         <Fragment>
@@ -122,7 +128,10 @@ const Signup = () => {
                             </div>
 
                             <div className=" m-3 d-flex flex-column align-self-center  ">
-                                <button onClick={submitFrom} className="btn btn-danger align-self-center  border rounded-pill border-dark font-weight-bolder m-3">S'inscrire </button>
+                                {(btn)?(
+                                <button onClick={submitFrom} className="btn btn-danger align-self-center  border rounded-pill border-dark font-weight-bolder m-3 ">S'inscrire </button>
+                                ):(<button onClick={submitFrom} className="btn btn-danger align-self-center  border rounded-pill border-dark font-weight-bolder m-3 disabel">S'inscrire </button>)}
+                                
                                 <Link className="ml-4 mr-5" to="/login">déja inscrit? connectez vous </Link>
                             </div>
                         </form>

@@ -15,7 +15,7 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const history = useHistory();
-    const { isAuthenticated, setIsAuthenticated, setToken, setUserId, isAdmin,setIsAdmin  } = useContext(Auth)
+    const { isAuthenticated, setIsAuthenticated, setToken, setUserId, isAdmin, setIsAdmin } = useContext(Auth)
 
 
     useEffect((e) => {
@@ -28,26 +28,35 @@ const Login = () => {
     // requêtes avec post pour se connecter
     const submitFrom = (e) => {
         e.preventDefault();
+        if (pseudo !== "" && email !== "" && password !== "") {
 
-        axios.post('http://localhost:8000/api/auth/login',
-            { pseudo: pseudo, password: password, email: email })
-            .then((res) => {
-               
-                const token = res.data.token;
-                const userId = res.data.userId;
-                const isAdmin = res.data.isAdmin;
-                if (token != null && userId != null && isAdmin != null) {
-                    setIsAuthenticated(true);
-                    setUserId(userId);
-                    setToken(token);
-                    setIsAdmin(isAdmin);
-                    history.push("/publication");
-                }
-            }).catch((error)=>{
-                console.log(error);
-            });
+            axios.post('http://localhost:8000/api/auth/login',
+                { pseudo: pseudo, password: password, email: email })
+                .then((res) => {
+
+                    const token = res.data.token;
+                    const userId = res.data.userId;
+                    const isAdmin = res.data.isAdmin;
+                    if (token != null && userId != null && isAdmin !== "") {
+                        setIsAuthenticated(true);
+                        setUserId(userId);
+                        setToken(token);
+                        setIsAdmin(isAdmin);
+                        history.push("/Publication");
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            alert("Veuillez remplir le formulaire!")
+        }
+
     }
 
+
+
+
+    
 
     return (
         <Fragment>
@@ -60,22 +69,26 @@ const Login = () => {
 
                             <div className="form-groups m-3 font-weight-bolder " >
                                 <label htmlFor="pseudo" className="d-flex justify-content-start">Pseudo </label>
-                                <input value={pseudo} onChange={(e) => { setPseudo(e.target.value)}}
-                                className="form-control border border-dark" type="text" id="pseudo"/>
+                                <input value={pseudo} onChange={(e) => { setPseudo(e.target.value) }}
+                                    className="form-control border border-dark" type="text" id="pseudo" />
                             </div>
                             <div className="form-groups m-3 font-weight-bolder" >
                                 <label htmlFor="email" className="d-flex justify-content-start">Email </label>
                                 <input value={email} onChange={(e) => { setEmail(e.target.value) }}
-                                    className="form-control border border-dark" type="email" id="email" placeholder="name@example.com"/>                                
+                                    className="form-control border border-dark" type="email" id="email" placeholder="name@example.com" />
                             </div>
                             <div className="form-groups m-3 font-weight-bolder" >
                                 <label htmlFor="password" className="d-flex justify-content-start">Password</label>
                                 <input value={password} onChange={(e) => { setPassword(e.target.value) }}
-                                    className="form-control border border-dark" type="password" id="password"/>
+                                    className="form-control border border-dark" type="password" id="password" />
                             </div>
 
                             <div className=" m-3  d-flex flex-column align-self-center ">
+
                                 <button onClick={submitFrom} className="btn btn-danger align-self-center  border rounded-pill border-dark font-weight-bolder mb-3">Se connecter </button>
+
+
+
                                 <Link to="/signup"> Pas encore inscrit ? Créer un compte </Link>
                             </div>
                         </form>

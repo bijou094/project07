@@ -154,24 +154,23 @@ export default function ItemsUsers(props) {
                         <div style={{ borderTop: "2px solid #000 " }}></div>
 
                         <div className=" d-flex flex-row   justify-content-center align-items-center mt-4 ">
-
-                            <button onClick={submitFrom} className="btn-upload mr-5" type="submit">Envoyer</button>
                             <div className=" parent-div  ">
                                 <button className="btn-upload" type="submit">Choisir l'image</button>
                                 <input type="file" ref={inputImg2} className="inputFile" />
                             </div>
+                            <button onClick={submitFrom} className="btn-upload ml-5" type="submit">Appliquer</button>
                         </div>
                         <img className="bg-dark p-2 border rounded-circle  m-3" src={props.user.imageUrl} alt="" width="200px" height="200px" />
                     </div>
 
-                    
+
                     <div style={{ borderTop: "2px solid #000 " }}></div>
 
                     <div className="mt-3">
                         <div htmlFor="pseudo" className="d-flex justify-content-start "><strong>Pseudo:</strong> {props.user.pseudo} </div>
                         <div htmlFor="email" className="d-flex justify-content-start mb-2"> <strong>Email:</strong>{props.user.email} </div>
-                        <button onClick={submitchangemodi} className='btn btn-danger align-self-center  border rounded-pill border-dark font-weight-bolder mb-3 mt-2'> modifier</button>
-                    </div>                    
+                        <button onClick={submitchangemodi} className='btn btn-primary align-self-center  border rounded-pill border-dark font-weight-bolder mb-3 mt-2'> modifier</button>
+                    </div>
                 </div>
 
 
@@ -192,23 +191,11 @@ export default function ItemsUsers(props) {
                     }
                 </div>
             </div>
-
             <div>
-                {(isAdmin === 1) ? (
-                    <div>
-                    <span>Voulez vous supprimer votre compte </span>
-                    <button onClick={submitdeleCount} className="btn-upload mt-2 ml-3" type="submit">Supprimer</button>
-                    </div>
-                )
-                    : (
-                        <div>
-                            supprimer votre compte
-                            <button onClick={submitdeleCount} className="btn-upload mt-2" type="submit">Supprimer</button>
-                        </div>
-
-                    )
-                }
+                <span>Voulez vous supprimer votre compte </span>
+                <button onClick={submitdeleCount} className="btn-upload mt-2 ml-3 bg-danger" type="submit">Supprimer</button>
             </div>
+
 
 
 

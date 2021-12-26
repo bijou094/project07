@@ -1,6 +1,18 @@
+.header-container{
+    background:#ffffff;
+    height: 100px;     
+    margin-bottom: 0;
+    border-bottom: 2px solid black; 
+   
+    
+
+}
 .footer-container{
     background:#ffffff;
     height: 100px;     
-    margin-bottom: 0;  
+    margin-bottom: 0;
+  
+    border-top: 2px solid black; 
+    
 
 }

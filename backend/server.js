@@ -20,13 +20,10 @@ const normalizePort = val => {
   return false;
   
 };
-
-//Ajout du port de connection si celui-ci n'est pas declarer 
-// Si aucun port n'est fourni on écoutera sur le port 3000
+//Ajout du port de connection si celui-ci n'est pas declarer / Si aucun port n'est fourni on écoutera sur le port 3000
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 //attribue le nom du paramètre à la valeur. 
-
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
     throw error;
@@ -49,20 +46,15 @@ const errorHandler = error => {
       throw error;
   }
 };
-
 // création du serveur avec express et utiliser app
 const server = http.createServer(app);
-
-//Lance le serveur
-// afficher sur quel port se connecter
-
+//Lance le serveur et afficher sur quel port se connecter
 server.on('error', errorHandler);
 server.on('listening', () => {
   const address = server.address();
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
   console.log('Le serveur a démarré on  ' + bind);
 });
-
 // Le serveur écoute le port 
 server.listen(port);
 

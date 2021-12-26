@@ -1,8 +1,10 @@
 .homeContainer{
     height: 700px;
-    background-image: url('../images/icon.svg') fixed;    
+    background-image: url('../images/icon.svg');
+    background-size: cover;   
         
-    background-repeat:no-repeat;
+   
+    background-repeat: repeat;
     
     background-position: center;
 }

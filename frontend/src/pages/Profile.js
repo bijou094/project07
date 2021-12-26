@@ -11,45 +11,63 @@ import Footer from '../components/Footer';
 
 const Profile = (props) => {
 
-    const { token, userId } = useContext(Auth)
+    const { token, userId, isAdmin } = useContext(Auth)
 
     const [data, setData] = useState([])
     const [refreche, setRefreche] = useState(false);
 
-    
+
     useEffect((e) => {
         axios.get(`http://localhost:8000/api/auth/users/${userId}`,
             { headers: { 'Authorization': 'Bearer ' + token } })
-            .then((res) => {                
+            .then((res) => {
                 setData([res.data])
             });
     }, [token, userId, refreche]);
 
 
+
+
+
+
     return (
         <Fragment>
             <Header />
-            <main className=" container  "  >
-                <div className=" row   d-flex flex-column align-content-center align-items-center ">
+            <main className=" container">
+                <section className=" row d-flex flex-column align-content-center align-items-center "  >
 
-                    <div className=" col-xs-12 col-s-8 col-md-8 col-lg-8  ">
+                    <article class="card col col-10  col-md-8 col-lg-6  mt-3 mb-3" >
+                        <ul className="  ">
+                            {
+                                data.map((user) => {
+                                    return <Itemsuser key={user.id} user={user} setRefreche={setRefreche} refreche={refreche} />
+                                })
+                            }
+                        </ul>
+                        <div>
+                            {
+                                (isAdmin) && (
+                                    <div>
+                                        <span className=' text-left mr-5'>voir tous les utilisateurs</span>
+                                        <Link className=' font-weight-bolder  mb-4' to="/Salaries">Voir plus</Link>
+                                    </div>
+                                )
+                            }
+                            <div className='mt-4 mb-5'>
+                                <Link className=' font-weight-bolder  mb-4' to="/Publication">retour à  la publication</Link>
+                            </div>
 
-                        <form className="col  d-flex flex-column align-items-center  align-content-center m-5 ">
-                            <ul className="card  p-2  border border-dark bg-light col-xs-12 col-s-8 col-md-12 col-lg-12">
-                                {
-                                    data.map((user) => {
-                                        return <Itemsuser key={user.id} user={user} setRefreche={setRefreche} refreche={refreche} />
-                                    })
-                                }
-                            </ul>
-                            <Link className=' font-weight-bolder text-dark display-5 m-2' to="/Publication">retour à  la publication</Link>
-                        </form>
+                        </div>
 
-                    </div>
-                </div>
+                    </article>
+                </section>
             </main>
+
             <Footer />
         </Fragment>
     )
 }
-export default  Profile;
+export default Profile;
+
+
+

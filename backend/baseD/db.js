@@ -1,17 +1,6 @@
 const mysql = require('mysql');
-/*
 const dotenv = require('dotenv').config();
-const{
-    DB_HOST,
-    DB_USER,
-    DB_PASS,
-    DB_NAME,
-}=process.env
-const DB_HOST = "localhost";
-const DB_USER = "root";
-const DB_PASS = "Mane08/06";
-const DB_NAME = "groupomania"; 
-*/
+
 
 
   

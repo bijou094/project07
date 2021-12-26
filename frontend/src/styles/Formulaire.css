@@ -5,19 +5,17 @@ body {
   background-color: #dae0e6;
 }
 
+
+
+
 .colFont {
   background-color: rgb(235, 235, 235);
   border-radius: 20px;
   width: 300px;
 }
-.contenairMessage {
-  /*width:400px;*/
-}
 
-.ajouteComment {
-  height: 60px;
-  border-color: transparent;
-}
+
+
 
 .containerLogin {
   width: 30%;
@@ -62,15 +60,15 @@ h2 {
   width: 150px;
 }
 .btnPoster {
-  width: 40px;
-  height: 40px;
-  border: none;
+  width: 39px;
+  height: 39px;  
   background-color: #fff;
   border: 1px solid rgb(204, 204, 204);
-  border-left: 0;
+ 
+  
   color: #000;
-  padding: 5px;
-  border-radius: 0px 10px 10px 0px;
+ 
+  border-radius:  10px;
   font-size: 16px;
   font-weight: 700;
 }
@@ -91,7 +89,8 @@ h2 {
 }
 .card {
   border-radius: 20px;
-  width: 90%;
+  border: 1px solid #000;
+ 
  
 }
 
@@ -118,22 +117,32 @@ h2 {
 
 form {
   
-  background-color: #fff;
-  border: 3px solid #000;
-  color: #000;
-  padding: 10px;
-  border-radius: 10px;
-}
-.ulMessage {
+  
+  border: 1px solid #000;
  
-  background-color: #fff;
-  border: 3px solid #000;
-  color: #000;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
 }
-section{
-  max-width: 400px;
+
+span{
+  font-size: 14px;
+}
+img{  
+  background-size: cover;  
+}
+.ul{
+  border: 1px solid #000;
+  width: 600px;
+  border-radius: 15px;
+}
+.lisalarie{
+  width: 200px;
+  border: 1px solid #000;
+  border-radius: 15px;
+}
+.liMsg{
+  border: 3px solid #000;
+  border-radius: 15px;
 }
 
 /************************************************publication**********************************************/

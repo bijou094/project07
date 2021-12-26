@@ -3,7 +3,7 @@ import Navigation from '../components/Navigation';
 import Logo from './Logo'
 function Header(){
     return(
-        <div className="footer-container m-0 container-fluid d-flex flex-row justify-content-between align-items-center">
+        <div className="header-container m-0 container-fluid d-flex flex-row justify-content-between align-items-center">
             < Logo />
             <Navigation />
            
