@@ -4,7 +4,7 @@ import Auth from '../context/contextAuth';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ItemsMessage from '../components/ItemsMessage';
-import '../styles/Formulaire.css'
+import '../styles/Projet.css'
 
 
 
@@ -43,11 +43,10 @@ const Publication = (props) => {
                     console.log(res);
                 }).catch((error) => { console.log(error); });
         } else {
-            alert('Veuillez saisir un message')
+            alert('Veuillez saisir un message ')
         }
 
     }
-
 
     // requêtes avec get pour recuperer tout les messages
     useEffect((e) => {
@@ -56,6 +55,8 @@ const Publication = (props) => {
             .then((res) => {
                 setData([...res.data]);
 
+            }).catch((error) => {
+                console.log(error);
             });
 
     }, [token, userId, refreche]);
@@ -67,7 +68,7 @@ const Publication = (props) => {
             <main className=" container">
                 <section className=" row d-flex flex-column align-content-center align-items-center mt-3"  >
                     
-                    <form class=" mr-4 col col-10  col-md-8 col-lg-6 bg-white" >
+                    <form class=" col col-10  col-md-8 col-lg-6 bg-white" >
                         <h1 className=" text-primary  mb-3"> Postez vos messages </h1>
                         <div  >
                             <label htmlFor="content" className="d-flex justify-content-start"> message</label>
@@ -81,9 +82,9 @@ const Publication = (props) => {
                             </div>
                         </div>
                     </form>
-                    <article class="border col  col-10  col-md-8 col-lg-6  mt-3   " >
+                    <article class="border col  col-10  col-md-8 col-lg-6  mt-1 p-0  " >
                         <h2 className="text-primary   mt-2  mb-2" ><em>Messages</em></h2>
-                        <ul className="list-unstyled   p-1 ">
+                        <ul className="list-unstyled w-100  p-0  m-0">
                                 {
                                     data.map((message) => {
                                         return <ItemsMessage key={message.id} message={message} setRefreche={setRefreche} refreche={refreche} />

@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Auth from '../context/contextAuth';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { useHistory } from 'react-router';
 import Itemsuser from '../components/ItemsUsers'
 import Footer from '../components/Footer';
 
@@ -12,7 +13,7 @@ import Footer from '../components/Footer';
 const Profile = (props) => {
 
     const { token, userId, isAdmin } = useContext(Auth)
-
+    const history = useHistory();
     const [data, setData] = useState([])
     const [refreche, setRefreche] = useState(false);
 
@@ -22,11 +23,16 @@ const Profile = (props) => {
             { headers: { 'Authorization': 'Bearer ' + token } })
             .then((res) => {
                 setData([res.data])
+            }).catch((error) => {
+                console.log(error);
             });
     }, [token, userId, refreche]);
 
+    const submitRederiger= (e) => {
 
-
+        history.push("/Salaries");
+    }
+    
 
 
 
@@ -49,7 +55,7 @@ const Profile = (props) => {
                                 (isAdmin) && (
                                     <div>
                                         <span className=' text-left mr-5'>voir tous les utilisateurs</span>
-                                        <Link className=' font-weight-bolder  mb-4' to="/Salaries">Voir plus</Link>
+                                        <button onClick={submitRederiger} className="btn-upload mt-2 p-2 bg-primary">Voir plus </button>
                                     </div>
                                 )
                             }
@@ -68,6 +74,5 @@ const Profile = (props) => {
     )
 }
 export default Profile;
-
 
 

@@ -1,16 +1,7 @@
 import React, { useContext, useState, useRef, Fragment } from 'react';
-
 import Auth from '../context/contextAuth';
 import { useHistory } from 'react-router';
-//import {Link} from 'react-router-dom';
-//import icon  from '../images/icon.png'
 import axios from 'axios';
-
-
-
-
-
-
 
 
 export default function ItemsUsers(props) {
@@ -57,8 +48,7 @@ export default function ItemsUsers(props) {
             }
         )
             .then((res) => {
-                console.log(res);
-                //alert('users trouvee');
+                console.log(res);               
                 props.setRefreche(!props.refreche)
 
             })
@@ -68,12 +58,11 @@ export default function ItemsUsers(props) {
 
     }
 
+    /* boutton pour modifier le pseudo et le adresss email de profile*/
 
 
     const submitchange = (e) => {
         e.preventDefault()
-
-
 
         axios.put(`http://localhost:8000/api/auth/user/${userId}`, { pseudo: pseudo, email: email },
             {
@@ -94,14 +83,6 @@ export default function ItemsUsers(props) {
             })
 
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -150,7 +131,7 @@ export default function ItemsUsers(props) {
             <div className="d-flex  flex-column align-items-sm-center align-items-md-center align-items-lg-center">
                 <div className="m-2 ">
                     <div>
-                        <div className="ml-0  m-2 font-weight-bolder">{props.user.firstName} {props.user.lastName}</div>
+                        <div className="ml-0  m-2 font-weight-bolder">{props.user.firstName}  {props.user.lastName}</div>
                         <div style={{ borderTop: "2px solid #000 " }}></div>
 
                         <div className=" d-flex flex-row   justify-content-center align-items-center mt-4 ">
@@ -160,7 +141,7 @@ export default function ItemsUsers(props) {
                             </div>
                             <button onClick={submitFrom} className="btn-upload ml-5" type="submit">Appliquer</button>
                         </div>
-                        <img className="bg-dark p-2 border rounded-circle  m-3" src={props.user.imageUrl} alt="" width="200px" height="200px" />
+                        <img className="bg-dark p-2 border rounded-circle  m-3" src={props.user.imageUrl} alt="profile portrait" width="200px" height="200px" />
                     </div>
 
 
@@ -192,8 +173,8 @@ export default function ItemsUsers(props) {
                 </div>
             </div>
             <div>
-                <span>Voulez vous supprimer votre compte </span>
-                <button onClick={submitdeleCount} className="btn-upload mt-2 ml-3 bg-danger" type="submit">Supprimer</button>
+                <span>Supprimer votre compte </span>
+                <button onClick={submitdeleCount} className="btn-upload mt-2 ml-5 bg-danger" type="submit">Supprimer</button>
             </div>
 
 

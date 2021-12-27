@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { Link } from "react-router-dom";
 import axios from "axios";
-import '../styles/Formulaire.css';
+import '../styles/Projet.css';
 import { useHistory } from 'react-router';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -36,6 +36,8 @@ const Signup = () => {
     // requêtes avec post pour s'inscrire
     const submitFrom = (e) => {
         e.preventDefault();
+        if (firstName!== "" &&  lastName!== "" &&  pseudo!== "" && email !== "" && password !== "") {
+
         axios.post("http://localhost:8000/api/auth/signup",
             { firstName: firstName, lastName: lastName, pseudo: pseudo, email: email, password: password })
             .then((res) => {
@@ -46,9 +48,12 @@ const Signup = () => {
             }).catch((error) => {
                 console.log(error);
             });
+        } else {
+            alert("Veuillez remplir le formulaire!")
+        }
     }
 
-    const btn = (firstName !== "" && lastName !== "" && pseudo !== "" && email !== "" && password !== "")
+   
 
 
 
@@ -128,9 +133,9 @@ const Signup = () => {
                             </div>
 
                             <div className=" m-3 d-flex flex-column align-self-center  ">
-                                {(btn)?(
+                   
                                 <button onClick={submitFrom} className="btn btn-danger align-self-center  border rounded-pill border-dark font-weight-bolder m-3 ">S'inscrire </button>
-                                ):(<button onClick={submitFrom} className="btn btn-danger align-self-center  border rounded-pill border-dark font-weight-bolder m-3 disabel">S'inscrire </button>)}
+                                
                                 
                                 <Link className="ml-4 mr-5" to="/login">déja inscrit? connectez vous </Link>
                             </div>
