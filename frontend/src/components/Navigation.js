@@ -58,11 +58,11 @@ function Navigation() {
                     <ul className="nav  text-dark justify-content-center  text-left">
 
                         <li className="nav-item">
-                            <Link className="nav-link text-left active text-dark font-weight-bolder" to="/signup">Signup</Link>
+                            <Link className="nav-link text-left active text-dark font-weight-bolder" to="/signup">S'inscrire</Link>
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link text-left text-dark font-weight-bolder" to="/login">Login</Link>
+                            <Link className="nav-link text-left text-dark font-weight-bolder" to="/login">Connection</Link>
                         </li>
                     </ul>
                 )

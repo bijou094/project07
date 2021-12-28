@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken'); 
 const dotenv = require('dotenv').config();
  // Importation du package jsonwebtoken (authentification par token)
-
-
  exports.auth = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1]; // Extraction du token du header authorization
@@ -14,8 +12,7 @@ const dotenv = require('dotenv').config();
   } else if (req.body.isAdmin && req.body.isAdmin !== isAdmin) {
       console.log(isAdmin)
       return res.status(401).json({error: "User role non valable !"})
-  } else{
-    
+  } else{    
     req.userId = userId;
     req.isAdmin= isAdmin;
     next();

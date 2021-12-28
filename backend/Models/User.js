@@ -13,9 +13,6 @@ function User(user) {
 }
 module.exports = User;
 
-
-
-
 // trouver pour créer un utilisateur
 User.create = (newUser, result) =>{
   const sqlInsert = "INSERT INTO users  SET ?";
@@ -32,7 +29,6 @@ User.create = (newUser, result) =>{
     }
   })
 };
-
 // trouver utilisateur par email
 User.findOneByEmail = (email, result) =>{
   const sqlfindEmail = "SELECT *  FROM  users  WHERE email=?";
@@ -45,7 +41,6 @@ User.findOneByEmail = (email, result) =>{
     }
   });
 };
-
 // trouver un user par son id
 User.findOneById = (id, result) => {  
   const sqlById ="SELECT * FROM users WHERE id=? ";
@@ -58,7 +53,6 @@ User.findOneById = (id, result) => {
     }       
   })
 };
-
 // trouver tout les users
 User.findAll = (result) => {
   const sqlAll ="SELECT * FROM users ";
@@ -71,9 +65,7 @@ User.findAll = (result) => {
     }       
   })
 };
-
 // Modifier l'image d'un user
-
 User.modifyImage = (user, result) => {
   const sqlModifyUser ="UPDATE users SET imageUrl=? WHERE id=?";
   db.query(sqlModifyUser,[user.imageUrl,user.id], (err, res) => {
@@ -97,8 +89,6 @@ User.modifyUser = (user, result) => {
     }
   })
 };
-
-
 // supprimer le user
 User.deleteUser = (id, result) => {
   const sqlDeleteUser ="DELETE FROM users  WHERE id=? ";

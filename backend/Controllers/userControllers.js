@@ -3,9 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
 
-
 // fonction pour s'inscrire
-
 module.exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)// hacher le mot de passe recupere de la requette
     .then(hash => {
@@ -34,12 +32,7 @@ module.exports.signup = (req, res, next) => {
       })
     }).catch(error => res.status(500).json({ error }));
   }
-
-
-
-
 // function pour se connecter
-
 module.exports.login = (req, res, next) => {
         const email = req.body.email;
         const password = req.body.password;
@@ -79,7 +72,6 @@ module.exports.login = (req, res, next) => {
         })
 
       };
-
   // fonction pour chercher tout les users
   exports.getAllUsers = (req, res, next) => {
     User.findAll((err, result) => {
@@ -90,12 +82,6 @@ module.exports.login = (req, res, next) => {
       }
     })
   };
-
-
-
-
-
-
   // fonction pour chercher un user par id
   exports.getOneUser = (req, res, next) => {
     User.findOneById(req.params.id, (err, result) => {
@@ -108,9 +94,6 @@ module.exports.login = (req, res, next) => {
       }
     })
   };
-
-
-
   // modifier l'image  user
   exports.updateOneUser = (req, res, next) => {
     const user = {
@@ -126,7 +109,6 @@ module.exports.login = (req, res, next) => {
 
     })
   };
-
   // modifier mail et pseudo   user
   exports.updateUserText = (req, res, next) => {
     const user = {
@@ -143,11 +125,7 @@ module.exports.login = (req, res, next) => {
 
     })
   };
-
-
-
   // fonction supprimer le user
-
   exports.deleteOneUser = (req, res, next) => {
     if (req.isAdmin) {
       User.deleteUser(req.params.id, (err, result) => {
