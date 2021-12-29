@@ -10,13 +10,11 @@ import '../styles/Projet.css';
 
 
 const Login = () => {
-
     const [pseudo, setPseudo] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const history = useHistory();
     const { isAuthenticated, setIsAuthenticated, setToken, setUserId, isAdmin, setIsAdmin } = useContext(Auth)
-
 
     useEffect((e) => {
         if (!isAuthenticated) {
@@ -24,16 +22,13 @@ const Login = () => {
         }
     }, [isAuthenticated, history])
 
-
     // requêtes avec post pour se connecter
     const submitFrom = (e) => {
         e.preventDefault();
         if (pseudo !== "" && email !== "" && password !== "") {
-
             axios.post('http://localhost:8000/api/auth/login',
                 { pseudo: pseudo, password: password, email: email })
                 .then((res) => {
-
                     const token = res.data.token;
                     const userId = res.data.userId;
                     const isAdmin = res.data.isAdmin;
@@ -52,10 +47,6 @@ const Login = () => {
         }
 
     }
-
-
-
-
     
 
     return (
@@ -84,11 +75,7 @@ const Login = () => {
                             </div>
 
                             <div className=" m-3  d-flex flex-column align-self-center ">
-
                                 <button onClick={submitFrom} className="btn btn-danger align-self-center  border rounded-pill border-dark font-weight-bolder mb-3">Se connecter </button>
-
-
-
                                 <Link to="/signup"> Pas encore inscrit ? Créer un compte </Link>
                             </div>
                         </form>

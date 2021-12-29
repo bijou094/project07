@@ -2,9 +2,9 @@ import React from 'react';
 import '../styles/Projet.css';
 import Logo from './Logo';
 
-function Footer() {
+const Footer = () => {
     return (
-        <div className="footer-container  d-flex   flex-row justify-content-center align-items-center">  
+        <div className="footer-container d-flex flex-row justify-content-center align-items-center">  
            < Logo />
         </div>
     )

@@ -8,9 +8,7 @@ import Footer from '../components/Footer';
 
 
 const Signup = () => {
-
     const history = useHistory();
-
     const data = {
         firstName: '',
         lastName: '',
@@ -22,17 +20,13 @@ const Signup = () => {
     const [dataSignup, setDataSignup] = useState(data);
     const { firstName, lastName, pseudo, password, email } = dataSignup;
 
-
     const handleChange = (e) => {
         setDataSignup(e)
     }
-
     // regex pour valider le formulaire
     const regexEmail = /^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,5})$/;
     const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
     const regexText = /^([a-zA-Z',.-]+( [a-zA-Z',.-]+)*){3,20}$/;
-
-
     // requêtes avec post pour s'inscrire
     const submitFrom = (e) => {
         e.preventDefault();
@@ -42,7 +36,6 @@ const Signup = () => {
             { firstName: firstName, lastName: lastName, pseudo: pseudo, email: email, password: password })
             .then((res) => {
                 console.log(res);
-
                 alert('Votre compte à bien été créé ! Connectez-vous pour accéder aux derniers publications.');
                 history.push("/login");
             }).catch((error) => {

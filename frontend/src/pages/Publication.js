@@ -16,8 +16,6 @@ const Publication = (props) => {
     const inputImg2 = useRef(null)
     const { token, userId } = useContext(Auth)
 
-
-
     // requêtes avec post pour cree un message
     const submitposteMsg = (e) => {
         e.preventDefault()
@@ -27,7 +25,6 @@ const Publication = (props) => {
             formData.set('image', inputImg2.current.files[0])
             formData.set('content', content)
             formData.set('idUser', userId)
-
             axios.post(`http://localhost:8000/api/auth/messages`, formData,
                 {
                     headers:

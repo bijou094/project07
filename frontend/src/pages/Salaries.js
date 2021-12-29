@@ -6,13 +6,10 @@ import Header from '../components/Header';
 import Auth from '../context/contextAuth';
 import axios from 'axios';
 import ItemsSalarie from '../components/ItemsSalarie';
-
 const Salaries= (props) => {
     const [data, setData] = useState([]);
     const { token,  isAdmin } = useContext(Auth);
     const [refreche, setRefreche] = useState(false);
-
-
     useEffect((e) => {
         if(isAdmin){
         

@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
 import icon from '../images/logow.svg'
-
-export default function Logo() {
+const Logo = () =>{
     return (
         <Fragment  >
             <img className="contenairLogo" src={icon} alt="logo entreprise" />
         </Fragment>
     )
 }
+export default  Logo ;

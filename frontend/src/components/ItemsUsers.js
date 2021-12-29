@@ -3,18 +3,12 @@ import Auth from '../context/contextAuth';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 
-
-export default function ItemsUsers(props) {
-
+const  ItemsUsers = (props) => {
     const { token, userId, isAdmin } = useContext(Auth)
     const [pseudo, setPseudo] = useState('')
     const [email, setEmail] = useState('')
     const [show, setShow] = useState(false)
-
-
     const [error, setError] = useState(null)
-
-
 
     const inputImg2 = useRef(null)
 
@@ -25,15 +19,7 @@ export default function ItemsUsers(props) {
     const submitchangemodi = (e) => {
         e.preventDefault();
         setShow(!show)
-
     }
-
-
-
-
-
-
-
     /* boutton pour changer la photos de profile*/
     const submitFrom = (e) => {
         e.preventDefault();
@@ -59,8 +45,6 @@ export default function ItemsUsers(props) {
     }
 
     /* boutton pour modifier le pseudo et le adresss email de profile*/
-
-
     const submitchange = (e) => {
         e.preventDefault()
 
@@ -83,9 +67,6 @@ export default function ItemsUsers(props) {
             })
 
     }
-
-
-
     /* boite de dialogue */
     const pomptConfirmation = () => {
         if (window.confirm(
@@ -100,9 +81,7 @@ export default function ItemsUsers(props) {
         }
     };
 
-
     /* boutton pour suprimer le compte*/
-
     const submitdeleCount = (e) => {
 
 
@@ -122,10 +101,6 @@ export default function ItemsUsers(props) {
 
 
     }
-
-
-
-
     return (
         <Fragment>
             <div className="d-flex  flex-column align-items-sm-center align-items-md-center align-items-lg-center">
@@ -133,7 +108,6 @@ export default function ItemsUsers(props) {
                     <div>
                         <div className="ml-0  m-2 font-weight-bolder">{props.user.firstName}  {props.user.lastName}</div>
                         <div style={{ borderTop: "2px solid #000 " }}></div>
-
                         <div className=" d-flex flex-row   justify-content-center align-items-center mt-4 ">
                             <div className=" parent-div  ">
                                 <button className="btn-upload" type="submit">Choisir l'image</button>
@@ -143,18 +117,13 @@ export default function ItemsUsers(props) {
                         </div>
                         <img className="bg-dark p-2 border rounded-circle  m-3" src={props.user.imageUrl} alt="profile portrait" width="200px" height="200px" />
                     </div>
-
-
                     <div style={{ borderTop: "2px solid #000 " }}></div>
-
                     <div className="mt-3">
                         <div htmlFor="pseudo" className="d-flex justify-content-start "><strong>Pseudo:</strong> {props.user.pseudo} </div>
                         <div htmlFor="email" className="d-flex justify-content-start mb-2"> <strong>Email:</strong>{props.user.email} </div>
                         <button onClick={submitchangemodi} className='btn btn-primary align-self-center  border rounded-pill border-dark font-weight-bolder mb-3 mt-2'> modifier</button>
                     </div>
                 </div>
-
-
                 <div className="m-2 border  d-flex flex-column ">
                     {
                         (show) ? (
@@ -176,10 +145,7 @@ export default function ItemsUsers(props) {
                 <span>Supprimer votre compte </span>
                 <button onClick={submitdeleCount} className="btn-upload mt-2 ml-5 bg-danger" type="submit">Supprimer</button>
             </div>
-
-
-
-
         </Fragment>
     )
 }
+export default  ItemsUsers ;

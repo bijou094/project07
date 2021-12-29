@@ -1,12 +1,8 @@
 import React, { Fragment, useContext } from 'react';
 import axios from 'axios';
 import Auth from '../context/contextAuth';
-
 const ItemsSalarie = (props) => {
-
     const { token, isAdmin } = useContext(Auth);
-
-
     const submitDelt = (e) => {
         e.preventDefault()
         if (isAdmin === 1) {
@@ -27,9 +23,6 @@ const ItemsSalarie = (props) => {
         }
 
     }
-
-
-
     return (
         <Fragment>           
 

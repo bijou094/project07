@@ -1,22 +1,15 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';//, {useState, useContext,useEffect }
 import '../styles/Projet.css';
-import { useHistory } from 'react-router';
 import ItemsComments from './ItemsComment';
 import Auth from '../context/contextAuth';
 import axios from 'axios';
 
-
-
-
 function ItemsMessage(props) {
-
     const [data, setData] = useState([]);
     const { token, userId, isAdmin } = useContext(Auth);
     const [refreche, setRefreche] = useState(false);
     const [commenText, setCommenText] = useState('');
-
-    //const history = useHistory();
-
+    
     // créé un commentaire d'un message 
 
     const submitcomment = (e) => {
@@ -38,8 +31,6 @@ function ItemsMessage(props) {
             }
         
     }
-
-
     // recupérér les commentaire d'un message
     useEffect((e) => {
 

@@ -8,9 +8,7 @@ import Profile from "../pages/Profile";
 import Publication from "../pages/Publication";
 import Salaries from "../pages/Salaries"
 
-
-
-function RoutesCompon() {
+const  RoutesCompon = () =>{
   return (
     <BrowserRouter>
       <Switch>
@@ -24,7 +22,4 @@ function RoutesCompon() {
     </BrowserRouter>
   );
 }
-
-
-
 export default RoutesCompon;

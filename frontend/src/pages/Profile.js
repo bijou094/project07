@@ -8,8 +8,6 @@ import Itemsuser from '../components/ItemsUsers'
 import Footer from '../components/Footer';
 
 
-
-
 const Profile = (props) => {
 
     const { token, userId, isAdmin } = useContext(Auth)
@@ -31,8 +29,7 @@ const Profile = (props) => {
     const submitRederiger= (e) => {
 
         history.push("/Salaries");
-    }
-    
+    }   
 
 
 
@@ -41,7 +38,6 @@ const Profile = (props) => {
             <Header />
             <main className=" container">
                 <section className=" row d-flex flex-column align-content-center align-items-center "  >
-
                     <article class="card col col-10  col-md-8 col-lg-6  mt-3 mb-3" >
                         <ul className="  ">
                             {
